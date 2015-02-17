@@ -15,7 +15,7 @@ public class TestRunner : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         bool passed = true;
-	foreach (Test test in tests)
+	foreach (CTest test in tests)
       {
           string message;
           if (!test.run(out message))

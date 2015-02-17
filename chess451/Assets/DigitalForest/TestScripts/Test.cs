@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class Test  {
+public abstract class CTest  {
 
     public  string testname;
 
