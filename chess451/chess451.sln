@@ -1,6 +1,8 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
+Project("{B7E39189-08C3-9310-CEEA-54B7818A54E0}") = "chess451", "Assembly-CSharp-firstpass.csproj", "{9543CC11-EE0B-7D57-3C2E-AF96846F301E}"
+EndProject
 Project("{B7E39189-08C3-9310-CEEA-54B7818A54E0}") = "chess451", "Assembly-CSharp.csproj", "{8F5CDCB2-B2E7-F09B-830D-5E874AB920F9}"
 EndProject
 Project("{B7E39189-08C3-9310-CEEA-54B7818A54E0}") = "chess451", "Assembly-CSharp-Editor.csproj", "{3D8F932F-211D-0786-771E-0BB33D428680}"
@@ -13,6 +15,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9543CC11-EE0B-7D57-3C2E-AF96846F301E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9543CC11-EE0B-7D57-3C2E-AF96846F301E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9543CC11-EE0B-7D57-3C2E-AF96846F301E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9543CC11-EE0B-7D57-3C2E-AF96846F301E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8F5CDCB2-B2E7-F09B-830D-5E874AB920F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8F5CDCB2-B2E7-F09B-830D-5E874AB920F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F5CDCB2-B2E7-F09B-830D-5E874AB920F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -29,7 +35,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																					GlobalSection(MonoDevelopProperties) = preSolution
+																																	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
