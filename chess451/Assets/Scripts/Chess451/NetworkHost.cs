@@ -7,13 +7,13 @@ using Photon;
 
 public class NetworkHost : UnityEngine.MonoBehaviour
 {
-    protected void Start()
+/*    protected void Start()
     {
         PhotonNetwork.ConnectUsingSettings("0.1");   
     }
 
     private const string roomName = "RoomName";
-    private RoomInfo[] roomsList;
+    private RoomInfo[] roomsList;*/
 
     void OnGUI()
     {
@@ -21,7 +21,7 @@ public class NetworkHost : UnityEngine.MonoBehaviour
         {
             GUILayout.Label(PhotonNetwork.connectionStateDetailed.ToString());
         }
-        else if (PhotonNetwork.room == null)
+/*        else if (PhotonNetwork.room == null)
         {
             // Create Room
             if (GUI.Button(new Rect(100, 100, 250, 100), "Start Server"))
@@ -36,10 +36,10 @@ public class NetworkHost : UnityEngine.MonoBehaviour
                         PhotonNetwork.JoinRoom(roomsList[i].name);
                 }
             }
-        }
+        }*/
     }
 
-    void OnReceivedRoomListUpdate()
+/*    void OnReceivedRoomListUpdate()
     {
         roomsList = PhotonNetwork.GetRoomList();
     }
@@ -52,6 +52,6 @@ public class NetworkHost : UnityEngine.MonoBehaviour
     protected void CreateObject()
     {
         PhotonNetwork.Instantiate("ColorPlayer", Vector3.zero, Quaternion.identity, 0);
-    }
+    }*/
 }
 

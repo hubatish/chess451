@@ -156,8 +156,13 @@
      <Compile Include="Assets\Photon Unity Networking\UtilityScripts\SupportLogger.cs" />
      <Compile Include="Assets\Photon Unity Networking\UtilityScripts\TimeKeeper.cs" />
      <Compile Include="Assets\Scripts\Chess451\ColorChangeObject.cs" />
+     <Compile Include="Assets\Scripts\Chess451\LoadingScreen.cs" />
+     <Compile Include="Assets\Scripts\Chess451\MenuAction.cs" />
      <Compile Include="Assets\Scripts\Chess451\NetworkHost.cs" />
      <Compile Include="Assets\Scripts\Chess451\NetworkedClient.cs" />
+     <Compile Include="Assets\Scripts\Chess451\PhotonConnector.cs" />
+     <Compile Include="Assets\Scripts\Chess451\Singleton.cs" />
+     <Compile Include="Assets\Scripts\Chess451\SwitchScreenAction.cs" />
      <Compile Include="Assets\Scripts\Chess451\obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
      <Compile Include="Assets\Scripts\Chess451\obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
      <Compile Include="Assets\Scripts\Chess451\obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
