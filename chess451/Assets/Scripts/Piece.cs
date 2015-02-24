@@ -6,13 +6,21 @@ using UnityEngine;
 
 /// <summary>
 /// Template Pattern for Chess Pieces. Used for generic containers such as board positions and for testing.
-/// Author: qtr23
+/// Author: qtr23 batman
 /// </summary>
 ///
 /// 
-public abstract class Piece : MonoBehaviour
+public abstract class Piece
 {
     Position pos;
+    bool hasMoved = false;
+    bool pinned; // TODO: FORKING ALGORITHM
 
-    
+    setPosition(Position p)
+    {
+    	if(!hasMoved){hasMoved = true;}
+    	pos = p;
+    }
+
+    //abstract getMoves()
 }
