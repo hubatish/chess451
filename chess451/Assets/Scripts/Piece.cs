@@ -16,11 +16,13 @@ public abstract class Piece
     bool hasMoved = false;
     bool pinned; // TODO: FORKING ALGORITHM
 
-    setPosition(Position p)
+	//setPosition commented out so that I can run the game - Xavi
+    /*setPosition(Position p)
     {
     	if(!hasMoved){hasMoved = true;}
     	pos = p;
     }
+	*/
 
     //abstract getMoves()
 }
