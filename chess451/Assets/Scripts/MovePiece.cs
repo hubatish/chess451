@@ -4,7 +4,7 @@ using System.Collections;
 public class MovePiece : MonoBehaviour {
 
 	public GameObject sPiece; //Selected piece
-	private Vector3 newPosition;
+	private Vector3 newPosition; //Where we move the piece
 
 	// Use this for initialization
 	void Start () {
@@ -14,26 +14,29 @@ public class MovePiece : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition); //Raycasting
 		RaycastHit hit;
 
 
-		if (Input.GetKeyDown (KeyCode.Mouse0)) {
+		if (Input.GetKeyDown (KeyCode.Mouse0)) 
+		{
 
 			if(sPiece == null) //select piece
 			{
 				if (Physics.Raycast (ray, out hit, 100)) 
 				{
-					sPiece = hit.transform.gameObject;
+					sPiece = hit.transform.gameObject; //sPiece = selected object
 				}
 			}
-			else if (Physics.Raycast (ray, out hit, 100)) {
+			//if piece is already selected then we move it
+			else if (Physics.Raycast (ray, out hit, 100)) 
+			{
 				newPosition.x = hit.transform.position.x;
-				newPosition.y = sPiece.transform.position.y; //so that we dont fly off high
+				newPosition.y = sPiece.transform.position.y; //keep height of pieces constant
 				newPosition.z = hit.transform.position.z;
-				sPiece.transform.position = newPosition;
+				sPiece.transform.position = newPosition; //move piece
 				Debug.Log (hit.transform.gameObject.name);
-				sPiece = null;
+				sPiece = null; //deselect piece after moving
 			}
 		}
 		/*
