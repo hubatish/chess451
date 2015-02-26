@@ -1,10 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MovePiece.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MovePieceWhite.cs">
     <Files>
       <File FileName="Assets\Scripts\Piece.cs" Line="19" Column="63" />
       <File FileName="Assets\Photon Unity Networking\Demos\MarcoPolo-Tutorial\ClickDetector.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\MovePiece.cs" Line="38" Column="22" />
+      <File FileName="Assets\Scripts\MovePieceBlack.cs" Line="6" Column="2" />
+      <File FileName="Assets\Scripts\MovePieceWhite.cs" Line="20" Column="42" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

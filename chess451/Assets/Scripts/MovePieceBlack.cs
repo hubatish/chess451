@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MovePiece : MonoBehaviour {
+public class MovePieceBlack : MonoBehaviour {
 
 	public GameObject sPiece; //Selected piece
 	private Vector3 newPosition; //Where we move the piece
@@ -20,15 +20,15 @@ public class MovePiece : MonoBehaviour {
 
 		if (Input.GetKeyDown (KeyCode.Mouse0)) 
 		{
-
-			if(sPiece == null) //select piece
+			//Select piece. We can only select a piece that has the tag "BlackPiece"
+			if(sPiece == null) 
 			{
-				if (Physics.Raycast (ray, out hit, 100)) 
+				if( (Physics.Raycast (ray, out hit, 100)) & hit.collider.gameObject.tag == "BlackPiece")
 				{
 					sPiece = hit.transform.gameObject; //sPiece = selected object
 				}
 			}
-			//if piece is already selected then we move it
+			//if piece is already selected then we move it to whatever object we click
 			else if (Physics.Raycast (ray, out hit, 100)) 
 			{
 				newPosition.x = hit.transform.position.x;
