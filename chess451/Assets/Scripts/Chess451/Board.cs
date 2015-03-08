@@ -8,7 +8,7 @@ namespace Assets.Scripts.Chess451
     public class Board
     {
         Piece[,] _board;
-        Board()
+        public Board()
         {
             _board = new Piece[8,8];
 

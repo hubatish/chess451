@@ -5,11 +5,12 @@ public class MovePieceWhite : MonoBehaviour {
 	public GameObject sPiece; //Selected piece
 	private Vector3 newPosition; //Where we move the piece
 	PiecePosition pieceScript; //the position of the piece
-
+    BoardRef boardRef;
 
 	// Use this for initialization
 	void Start () {
 		newPosition = transform.position;
+        boardRef = GameObject.FindGameObjectWithTag("BoardBase").GetComponent<BoardRef>();
 	}
 
 	int convertRow(char row)
