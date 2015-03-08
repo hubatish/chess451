@@ -50,9 +50,9 @@ namespace Assets.Scripts.Chess451
             p.X = 3;
             _board[2, 7] = new Bishop(PIECE_COLOR.BLACK, p);
             p.X = 4;
-            _board[3, 7] = new Queen(PIECE_COLOR.BLACK, p);
+            _board[3, 7] = new King(PIECE_COLOR.BLACK, p);
             p.X = 5;
-            _board[4, 7] = new King(PIECE_COLOR.BLACK, p);
+            _board[4, 7] = new Queen(PIECE_COLOR.BLACK, p);
             p.X = 6;
             _board[5, 7] = new Bishop(PIECE_COLOR.BLACK, p);
             p.X = 7;
@@ -68,13 +68,96 @@ namespace Assets.Scripts.Chess451
                 _board[i, 7] = new Pawn(PIECE_COLOR.BLACK, p);
             }
         }
+
+
+        public bool isValidMove(int x1, int y1, int x2, int y2)
+        {
+            ThreatMap t = _board[x1, y1].getMoves().Invoke(this);
+            if (t.GetSpot(x2, y2))
+                return true;
+            else  return false;
+        }
+
+        public bool canKingSideCastle(PIECE_COLOR c)
+        {
+            if (c == PIECE_COLOR.WHITE && !Object.Equals(_board[4, 0], null) && !_board[4, 0].hasMoved) // check the king
+                if (!Object.Equals(_board[7, 0], null) && !_board[7, 0].hasMoved) // chech the rook
+                {
+                    for (int i = 5; i < 7; i++)
+                    {
+                        if (!Object.Equals(_board[i, 0], null)) // check that the spaces in between are empty
+                            return false;
+                    }
+                        return true;
+                }
+            if (c == PIECE_COLOR.BLACK && !Object.Equals(_board[3, 7], null) && !_board[3, 7].hasMoved) // check the king
+                if (!Object.Equals(_board[0, 7], null) && !_board[0, 7].hasMoved) // chech the rook
+                {
+                    for (int i = 1; i < 3; i++)
+                    {
+                        if (!Object.Equals(_board[i, 7], null)) // check that the spaces in between are empty
+                            return false;
+                    }
+                    return true;
+                }
+            return false;
+        }
+
+
+        public bool canQueenSideCastle(PIECE_COLOR c)
+        {
+            if (c == PIECE_COLOR.WHITE && !Object.Equals(_board[4, 0], null) && !_board[4, 0].hasMoved) // check the king
+                if (!Object.Equals(_board[0, 0], null) && !_board[0, 0].hasMoved) // chech the rook
+                {
+                    for (int i = 1; i < 4; i++)
+                    {
+                        if (!Object.Equals(_board[i, 0], null)) // check that the spaces in between are empty
+                            return false;
+                    }
+                    return true;
+                }
+            if (c == PIECE_COLOR.BLACK && !Object.Equals(_board[3, 7], null) && !_board[3, 7].hasMoved) // check the king
+                if (!Object.Equals(_board[7, 7], null) && !_board[7, 7].hasMoved) // chech the rook
+                {
+                    for (int i = 4; i < 7; i++)
+                    {
+                        if (!Object.Equals(_board[i, 7], null)) // check that the spaces in between are empty
+                            return false;
+                    }
+                    return true;
+                }
+            return false;
+        }
+
         public Piece getBoardPiece(int x, int y)
         { return _board[x, y]; }
-        
+
+
+        public bool Check()
+        {
+            foreach(Piece p in _board)
+            {
+                ThreatMap t = p.getMoves().Invoke(this);
+                for(int i =  0; i < 8; i++)
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        if(_board[i, j] is King && t.GetSpot(i, j))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+
+
         public bool moveBoardPiece(int x1, int y1, int x2, int y2)
         {
             bool passant = false;
-            if (_board[x1, y1] is Pawn && x2 != x1 && _board[x2, y2].Equals(null))
+            if (_board[x1, y1] is Pawn && x2 != x1 && Object.Equals(_board[x2, y2],null))
             {
                 //Capture en passent piece
                 _board[x2, y1] = null;

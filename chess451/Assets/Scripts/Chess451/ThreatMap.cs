@@ -29,5 +29,10 @@ namespace Assets.Scripts.Chess451
         {
             map[x,y] = canMove;
         }
+        public bool GetSpot(int x, int y)
+        {
+            return map[x, y];
+        }
+
     }
 }
