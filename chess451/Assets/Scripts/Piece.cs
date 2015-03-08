@@ -21,22 +21,24 @@ public enum PIECE_COLOR
 public abstract class Piece
 {
     public PIECE_COLOR color {get;  private set;}
-    Position pos;
-    bool hasMoved = false;
+    protected Position pos;
+    public bool hasMoved { get; protected set; }
     bool pinned; // TODO: FORKING ALGORITHM
 
     public Piece(PIECE_COLOR c, Position startPos)
     {
         color = c;
         pos = startPos;
+        hasMoved = false;
     }
 
     public Piece()
     {
         color = PIECE_COLOR.WHITE;
         pos = new Position();
+        hasMoved = false;
     }
-	protected Position position
+	virtual protected Position position
     {
         get { return pos; }
         set

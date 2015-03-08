@@ -7,6 +7,7 @@ namespace Assets.Scripts
 {
     class Queen: Piece
     {
+         public Queen(PIECE_COLOR c, Position p) : base(c, p) { }
         public override Func<Assets.Scripts.Chess451.Board, Assets.Scripts.Chess451.ThreatMap> getMoves()
         {
             return (x) =>
