@@ -156,11 +156,11 @@ namespace Assets.Scripts.Chess451
 
 
 
-        public bool moveBoardPiece(int x1, int y1, int x2, int y2)
+        public bool moveBoardPiece(int x1, int y1, int x2, int y2, out bool passant)
         {
-           
-            bool passant = false;
-            if (isValidMove(x1, y1, x2, y2))
+            bool isValid = isValidMove(x1, y1, x2, y2);
+             passant = false;
+            if (isValid)
             {
                 if (_board[x1, y1] is Pawn && x2 != x1 && Object.Equals(_board[x2, y2], null))
                 {
@@ -172,7 +172,7 @@ namespace Assets.Scripts.Chess451
 
                 _board[x1, y1] = null;
             }
-            return passant;
+            return isValid;
         }
     }
 }
