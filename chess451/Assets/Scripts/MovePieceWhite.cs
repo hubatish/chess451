@@ -4,6 +4,7 @@ using System.Collections;
 public class MovePieceWhite : MonoBehaviour {
 	public GameObject sPiece; //Selected piece
 	private Vector3 newPosition; //Where we move the piece
+	PiecePosition pieceScript; //the position of the piece
 
 
 	// Use this for initialization
@@ -66,6 +67,7 @@ public class MovePieceWhite : MonoBehaviour {
 				if( (Physics.Raycast (ray, out hit, 100)) & hit.collider.gameObject.tag == "WhitePiece")
 				{
 					sPiece = hit.transform.gameObject; //sPiece = selected object
+					pieceScript = (PiecePosition) sPiece.GetComponent(typeof(PiecePosition));
 				}
 			}
 			//if piece is already selected then we move it to whatever object we click
@@ -87,6 +89,9 @@ public class MovePieceWhite : MonoBehaviour {
 				NetworkPlayer.Instance.MovePiece(sPiece.transform.position,newPosition);
 				sPiece.transform.position = newPosition; //move piece
 				Debug.Log (hit.transform.gameObject.name);
+
+				pieceScript.setMovePos(hit.transform.parent.gameObject);
+
 				sPiece = null; //deselect piece after moving
 			}
 		}
