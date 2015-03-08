@@ -137,20 +137,37 @@ namespace Assets.Scripts.Chess451
         {
             mate = false;
             bool retVal = false;
+            List<ThreatMap> tList1 = new List<ThreatMap>();
+            Dictionary<Piece, ThreatMap> d = new Dictionary<Piece, ThreatMap>();
             foreach(Piece p in _board)
             {
                 ThreatMap t = p.getMoves().Invoke(this);
-                for(int i =  0; i < 8; i++)
-                {
+                d.Add(p, t);
+                tList1.Add(t);
+
+                
+               
+            }
+            // We now have every threatmap
+            foreach(ThreatMap t in tList1)
+            {
+                for (int i = 0; i < 8; i++)
+                 {
                     for (int j = 0; j < 8; j++)
                     {
-                        if(_board[i, j] is King && t.GetSpot(i, j) && _board[i,j].color == c)
+                        if (_board[i, j] is King && t.GetSpot(i, j) && _board[i, j].color == c)
                         {
-                            retVal = true;
+
+                            return true;
+
                         }
+                        
                     }
                 }
             }
+
+
+
             return retVal;
         }
 
