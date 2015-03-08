@@ -29,7 +29,10 @@ public class PhotonConnector : Singleton<PhotonConnector>
 
     protected void Start()
     {
-        PhotonNetwork.ConnectUsingSettings("0.1");
+        if(!PhotonNetwork.connected)
+        {
+            PhotonNetwork.ConnectUsingSettings("0.1");
+        }
     }
 
     //callback when lobby has been joined

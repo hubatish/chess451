@@ -33,6 +33,9 @@ public class MovePieceWhite : MonoBehaviour {
 				newPosition.x = hit.transform.position.x;
 				newPosition.y = sPiece.transform.position.y; //keep height of pieces constant
 				newPosition.z = hit.transform.position.z;
+				//Call Networking with this stuff
+				//TODO: Networking and checking should probably use positions in grid coordinates rather than Unity coordinates (like A2 or [0,1] rather than things with z's and floats
+				NetworkPlayer.Instance.MovePiece(sPiece.transform.position,newPosition);
 				sPiece.transform.position = newPosition; //move piece
 				Debug.Log (hit.transform.gameObject.name);
 				sPiece = null; //deselect piece after moving

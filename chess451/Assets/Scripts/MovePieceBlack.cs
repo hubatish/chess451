@@ -34,6 +34,7 @@ public class MovePieceBlack : MonoBehaviour {
 				newPosition.x = hit.transform.position.x;
 				newPosition.y = sPiece.transform.position.y; //keep height of pieces constant
 				newPosition.z = hit.transform.position.z;
+				NetworkPlayer.Instance.MovePiece(sPiece.transform.position,newPosition);
 				sPiece.transform.position = newPosition; //move piece
 				Debug.Log (hit.transform.gameObject.name);
 				sPiece = null; //deselect piece after moving
