@@ -133,8 +133,10 @@ namespace Assets.Scripts.Chess451
         { return _board[x, y]; }
 
 
-        public bool Check()
+        public bool Check(PIECE_COLOR c, out bool mate)
         {
+            mate = false;
+            bool retVal = false;
             foreach(Piece p in _board)
             {
                 ThreatMap t = p.getMoves().Invoke(this);
@@ -142,30 +144,34 @@ namespace Assets.Scripts.Chess451
                 {
                     for (int j = 0; j < 8; j++)
                     {
-                        if(_board[i, j] is King && t.GetSpot(i, j))
+                        if(_board[i, j] is King && t.GetSpot(i, j) && _board[i,j].color == c)
                         {
-                            return true;
+                            retVal = true;
                         }
                     }
                 }
             }
-            return false;
+            return retVal;
         }
 
 
 
         public bool moveBoardPiece(int x1, int y1, int x2, int y2)
         {
+           
             bool passant = false;
-            if (_board[x1, y1] is Pawn && x2 != x1 && Object.Equals(_board[x2, y2],null))
+            if (isValidMove(x1, y1, x2, y2))
             {
-                //Capture en passent piece
-                _board[x2, y1] = null;
-                passant = true;
+                if (_board[x1, y1] is Pawn && x2 != x1 && Object.Equals(_board[x2, y2], null))
+                {
+                    //Capture en passent piece
+                    _board[x2, y1] = null;
+                    passant = true;
+                }
+                _board[x2, y2] = _board[x1, y1];
+
+                _board[x1, y1] = null;
             }
-            _board[x2, y2] = _board[x1, y1];
-          
-            _board[x1, y1] = null;
             return passant;
         }
     }
