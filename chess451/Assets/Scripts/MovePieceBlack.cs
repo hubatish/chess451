@@ -74,25 +74,42 @@ public class MovePieceBlack : MonoBehaviour {
 			//if piece is already selected then we move it to whatever object we click
 			else if (Physics.Raycast (ray, out hit, 100)) 
 			{
-				newPosition.x = hit.transform.position.x;
+                newPosition.x = hit.transform.position.x;
+                char[] posChar = hit.transform.parent.name.ToCharArray();
+                char[] posCharO = pieceScript.currentPos.name.ToCharArray();
 
-				char[] posChar = hit.transform.parent.name.ToCharArray();
-				
-				int row = convertRow (posChar[0]);
-				int column = (int)char.GetNumericValue(posChar[1]) - 1;
-				
-				//Debug.Log ("Row: " + posChar[0] + " Column: " + posChar[1]);
-				//Debug.Log ("Coordinates: " + row + "," + column);
 
-				newPosition.y = sPiece.transform.position.y; //keep height of pieces constant
-				newPosition.z = hit.transform.position.z;
-				NetworkPlayer.Instance.MovePiece(sPiece.transform.position,newPosition);
-				sPiece.transform.position = newPosition; //move piece
-				Debug.Log (hit.transform.gameObject.name);
+                int row = convertRow(posCharO[0]);
+                int column = (int)char.GetNumericValue(posCharO[1]) - 1;
 
-				pieceScript.setMovePos(hit.transform.parent.gameObject);
 
-				sPiece = null; //deselect piece after moving
+
+                int row2 = convertRow(posChar[0]);
+                int column2 = (int)char.GetNumericValue(posChar[1]) - 1;
+
+                //Debug.Log ("Row: " + posChar[0] + " Column: " + posChar[1]);
+                //Debug.Log ("Coordinates: " + row + "," + column);
+                newPosition.y = sPiece.transform.position.y; //keep height of pieces constant
+                newPosition.z = hit.transform.position.z;
+                bool enPassant = false;
+                if (boardRef.b.moveBoardPiece(row, column, row2, column2, out enPassant))
+                {
+                    //Call Networking with this stuff
+                    //TODO: Networking and checking should probably use positions in grid coordinates rather than Unity coordinates (like A2 or [0,1] rather than things with z's and floats
+                    NetworkPlayer.Instance.MovePiece(sPiece.transform.position, newPosition);
+                    sPiece.transform.position = newPosition; //move piece
+                    Debug.Log(hit.transform.gameObject.name);
+
+                    pieceScript.setMovePos(hit.transform.parent.gameObject);
+
+                    sPiece = null; //deselect piece after moving
+
+                    if (enPassant)
+                    {
+                        // TODO: Code to remove en Pessanted piece
+                    }
+                }
+
 			}
 		}
 		/*
