@@ -11,28 +11,28 @@
     <Position X="10.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAABAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
-      <FileName>Assets\DigitalForest\TestScripts\TestRunner.cs</FileName>
+      <FileName>Assets\TestScripts\TestRunner.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Piece">
     <Position X="5.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\DigitalForest\Scripts\Piece.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAIAAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Piece.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PositionTest">
+    <Position X="11.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAABAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\TestScripts\PositionTest.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Position">
     <Position X="8.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACAAAAAAAAAIAAAAAAAAAAAAAAAEAAAAABgAAAAYAA=</HashCode>
-      <FileName>Assets\DigitalForest\Scripts\Position.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="PositionTest">
-    <Position X="11.5" Y="5.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Assets\DigitalForest\TestScripts\PositionTest.cs</FileName>
+      <FileName>Assets\Scripts\Position.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

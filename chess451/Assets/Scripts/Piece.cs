@@ -6,23 +6,49 @@ using UnityEngine;
 
 /// <summary>
 /// Template Pattern for Chess Pieces. Used for generic containers such as board positions and for testing.
-/// Author: qtr23 batman
+/// Author: qtr23
 /// </summary>
 ///
 /// 
+
+public enum PIECE_COLOR
+{
+    WHITE, BLACK
+}
+
+//public delegate Assets.Scripts.Chess451.ThreatMap Del(Assets.Scripts.Chess451.Board x);
+
 public abstract class Piece
 {
+    public PIECE_COLOR color {get;  private set;}
     Position pos;
     bool hasMoved = false;
     bool pinned; // TODO: FORKING ALGORITHM
 
-	//setPosition commented out so that I can run the game - Xavi
-    /*setPosition(Position p)
+    public Piece(PIECE_COLOR c, Position startPos)
     {
-    	if(!hasMoved){hasMoved = true;}
-    	pos = p;
+        color = c;
+        pos = startPos;
     }
-	*/
 
-    //abstract getMoves()
+    public Piece()
+    {
+        color = PIECE_COLOR.WHITE;
+        pos = new Position();
+    }
+	protected Position position
+    {
+        get { return pos; }
+        set
+        {
+            if (!hasMoved) { hasMoved = true; }
+            pos = value;
+        }
+    }
+  
+    // Delegates are so last Tuesday
+    public abstract Func<Assets.Scripts.Chess451.Board, Assets.Scripts.Chess451.ThreatMap> getMoves();
+   // public abstract Del getMoves();
+
+    
 }
