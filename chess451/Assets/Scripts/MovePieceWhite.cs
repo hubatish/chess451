@@ -26,46 +26,6 @@ public class MovePieceWhite : MonoBehaviour {
         boardRef = GameObject.FindGameObjectWithTag("BoardBase").GetComponent<BoardRef>();
 	}
 
-	int convertRow(char row)
-	{
-		switch (row) 
-		{
-			case 'A':
-				return 0;
-				break;
-
-			case 'B':
-				return 1;
-				break;
-
-			case 'C':
-				return 2;
-				break;
-				
-			case 'D':
-				return 3;
-				break;
-			
-			case 'E':
-				return 4;
-				break;
-				
-			case 'F':
-				return 5;
-				break;
-				
-			case 'G':
-				return 6;
-				break;
-				
-			case 'H':
-				return 7;
-				break;
-		default : return -1;
-			break;
-		}
-	}
-
 	// Update is called once per frame
 	void Update () {
 		
@@ -94,20 +54,13 @@ public class MovePieceWhite : MonoBehaviour {
                 Position newPos = new Position(hit.transform.parent.name);
                 Position oldPos = new Position(pieceScript.currentPos.name);
 
-				//Debug.Log ("Row: " + posChar[0] + " Column: " + posChar[1]);
-				//Debug.Log ("Coordinates: " + row + "," + column);
 				newPosition.y = sPiece.transform.position.y; //keep height of pieces constant
 				newPosition.z = hit.transform.position.z;
                 bool enPassant = false;
+                //the checks give null references right now
                 //if(boardRef.b.moveBoardPiece(oldPos,newPos, out enPassant))
                 {
-				    //Call Networking with this stuff
-				    //TODO: Networking and checking should probably use positions in grid coordinates rather than Unity coordinates (like A2 or [0,1] rather than things with z's and floats
 				    NetworkPlayer.Instance.MovePiece(oldPos,newPos);
-				    //sPiece.transform.position = newPosition; //move piece
-				    //Debug.Log (hit.transform.gameObject.name);
-
-				    //pieceScript.setMovePos(hit.transform.parent.gameObject);
 
 				    sPiece = null; //deselect piece after moving
 
@@ -118,22 +71,12 @@ public class MovePieceWhite : MonoBehaviour {
                 }
 			}
 		}
-		/*
-		if(Input.GetKeyDown (KeyCode.Mouse0))
-		{
-			if (Input.GetMouseButtonDown (0))
-			{
-				newPosition.x = square.transform.position.x;
-				newPosition.z = square.transform.position.z;
-				transform.position = newPosition;
-			}
-		} */
 	}
 
     //Update the 3d board with the piece movement
     public void OfficiallyMovePiece(Position oldPos, Position newPos)
     {
-        Debug.Log("officially moving from  " + oldPos.ToGridString() + " to " + newPos.ToGridString());
+        //Debug.Log("officially moving from  " + oldPos.ToGridString() + " to " + newPos.ToGridString());
         
         Transform piece = UnityBoardSquare.GetUnityBoardSquare(oldPos).GetPieceOnSquare().transform;
         Transform newSquare = UnityBoardSquare.GetUnityBoardSquare(newPos).transform;

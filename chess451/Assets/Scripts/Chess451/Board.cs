@@ -259,7 +259,7 @@ namespace Assets.Scripts.Chess451
 
                     for (int i = 0; i < 8; i++)
                             for (int j = 0; j < 8; j++)
-                                if(kingThreat.GetSpot(i,j)
+                                if(kingThreat.GetSpot(i,j))
                                     mate = false; // if the king has even one legal move, this is not checkmate
                 }
 

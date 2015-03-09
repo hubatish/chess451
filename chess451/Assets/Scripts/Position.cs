@@ -40,10 +40,11 @@ using UnityEngine;
 
         public Position(string gridString)
         {
+            //Debug.Log("the grid string was: " + gridString);
             char[] posChar = gridString.ToCharArray();
 
             int row = convertRow(posChar[0]);
-            int column = (int)char.GetNumericValue(posChar[1]) - 1;
+            int column = (int)char.GetNumericValue(posChar[1]);
             
             XMAX = CHESSDEFAULT;
             YMAX = CHESSDEFAULT;
@@ -52,6 +53,7 @@ using UnityEngine;
 
             X = row;
             Y = column;
+            //Debug.Log("X: " + X + "Y: " + Y);
         }
 
         public Position(Vector3 v)
@@ -59,8 +61,11 @@ using UnityEngine;
             XMAX = CHESSDEFAULT;
             YMAX = CHESSDEFAULT;
 
-            x = (int) v.x;
-            y = (int) v.y;
+            x = 1;
+            y = 1;
+
+            X = (int) v.x;
+            Y = (int) v.y;
         }
 
         public int X

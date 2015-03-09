@@ -36,9 +36,7 @@ public class NetworkPlayer : Singleton<NetworkPlayer>
         Vector3 start = message.startPos;
         Vector3 end = message.endPos;
         //Debug.Log("OnReceiveMoveRPC has start and end: " + start.ToString() + " , " + end.ToString());
-        Debug.Log("TODO: do something with this info");
-        //TODO:
-        //  Make this call actually move pieces
+
         pieceMover.OfficiallyMovePiece(new Position(start), new Position(end));
     }
 }

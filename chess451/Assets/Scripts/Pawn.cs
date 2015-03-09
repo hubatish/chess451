@@ -11,7 +11,7 @@ namespace Assets.Scripts
         bool inStep = false;
          public Pawn(PIECE_COLOR c, Position p) : base(c, p) { }
 
-        override protected Position position
+        protected Position position
         {
             get { return pos; }
             set

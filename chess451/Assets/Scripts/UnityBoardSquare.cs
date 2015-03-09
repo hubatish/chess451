@@ -26,7 +26,6 @@ public class UnityBoardSquare : MonoBehaviour
         Ray ray = new Ray(gameObject.transform.position-Vector3.up*10, Vector3.up);
 
         RaycastHit[] hits = Physics.RaycastAll(ray, 100);
-        Debug.Log("had " + hits.Length + "hits");
         foreach(var hit in hits)
         {
             if (hit.collider.gameObject.tag.Contains("Piece"))
@@ -34,7 +33,7 @@ public class UnityBoardSquare : MonoBehaviour
                 return hit.transform.gameObject;
             }        
         }
-        Debug.Log(gameObject.name + " found no piece");
+        //Debug.Log(gameObject.name + " found no piece");
         return null;
     }
 }
