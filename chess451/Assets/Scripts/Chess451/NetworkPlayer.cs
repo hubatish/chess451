@@ -6,13 +6,18 @@ using UnityEngine;
 
 public class NetworkPlayer : Singleton<NetworkPlayer>
 {
+    public MovePieceWhite pieceMover;
+
     protected PhotonView photonView;
     protected void Awake()
     {
         photonView = gameObject.GetComponent<PhotonView>();
     }
 
-
+    public void MovePiece(Position oldPos, Position newPos)
+    {
+        MovePiece(oldPos.ToSimpleVector3(), newPos.ToSimpleVector3());
+    }
 
     public void MovePiece(Vector3 oldPiecePos, Vector3 newPiecePos)
     {
@@ -30,10 +35,11 @@ public class NetworkPlayer : Singleton<NetworkPlayer>
         MoveMessages message = new MoveMessages(moveString);
         Vector3 start = message.startPos;
         Vector3 end = message.endPos;
-        Debug.Log("OnReceiveMoveRPC has start and end: " + start.ToString() + " , " + end.ToString());
+        //Debug.Log("OnReceiveMoveRPC has start and end: " + start.ToString() + " , " + end.ToString());
         Debug.Log("TODO: do something with this info");
         //TODO:
         //  Make this call actually move pieces
+        pieceMover.OfficiallyMovePiece(new Position(start), new Position(end));
     }
 }
 

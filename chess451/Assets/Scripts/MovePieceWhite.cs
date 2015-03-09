@@ -4,7 +4,7 @@ using System.Collections;
 public class MovePieceWhite : MonoBehaviour {
 	public GameObject sPiece; //Selected piece
 	private Vector3 newPosition; //Where we move the piece
-	PiecePosition pieceScript; //the position of the piece
+	UnityPiece pieceScript; //the position of the piece
     BoardRef boardRef;
 
     public bool isWhite = true;
@@ -81,39 +81,33 @@ public class MovePieceWhite : MonoBehaviour {
 				if( (Physics.Raycast (ray, out hit, 100)) & hit.collider.gameObject.tag == GetColliderTag())
 				{
 					sPiece = hit.transform.gameObject; //sPiece = selected object
-					pieceScript = (PiecePosition) sPiece.GetComponent(typeof(PiecePosition));
+					pieceScript = (UnityPiece) sPiece.GetComponent(typeof(UnityPiece));
 				}
 			}
 			//if piece is already selected then we move it to whatever object we click
 			else if (Physics.Raycast (ray, out hit, 100)) 
 			{
 				newPosition.x = hit.transform.position.x;
-				char[] posChar = hit.transform.parent.name.ToCharArray();
-                char[] posCharO = pieceScript.currentPos.name.ToCharArray();
 
-
-				int row = convertRow (posCharO[0]);
-				int column = (int)char.GetNumericValue(posCharO[1]) - 1;
-
-                
-
-                int row2 = convertRow(posChar[0]);
-                int column2 = (int)char.GetNumericValue(posChar[1]) - 1;
+                /// ZH 3-8, midnight
+                /// Moved string parsing and convertRow functionality to Position.cs
+                Position newPos = new Position(hit.transform.parent.name);
+                Position oldPos = new Position(pieceScript.currentPos.name);
 
 				//Debug.Log ("Row: " + posChar[0] + " Column: " + posChar[1]);
 				//Debug.Log ("Coordinates: " + row + "," + column);
 				newPosition.y = sPiece.transform.position.y; //keep height of pieces constant
 				newPosition.z = hit.transform.position.z;
                 bool enPassant = false;
-                if(boardRef.b.moveBoardPiece(row, column, row2, column2, out enPassant))
+                //if(boardRef.b.moveBoardPiece(oldPos,newPos, out enPassant))
                 {
 				    //Call Networking with this stuff
 				    //TODO: Networking and checking should probably use positions in grid coordinates rather than Unity coordinates (like A2 or [0,1] rather than things with z's and floats
-				    NetworkPlayer.Instance.MovePiece(sPiece.transform.position,newPosition);
-				    sPiece.transform.position = newPosition; //move piece
-				    Debug.Log (hit.transform.gameObject.name);
+				    NetworkPlayer.Instance.MovePiece(oldPos,newPos);
+				    //sPiece.transform.position = newPosition; //move piece
+				    //Debug.Log (hit.transform.gameObject.name);
 
-				    pieceScript.setMovePos(hit.transform.parent.gameObject);
+				    //pieceScript.setMovePos(hit.transform.parent.gameObject);
 
 				    sPiece = null; //deselect piece after moving
 
@@ -135,4 +129,15 @@ public class MovePieceWhite : MonoBehaviour {
 			}
 		} */
 	}
+
+    //Update the 3d board with the piece movement
+    public void OfficiallyMovePiece(Position oldPos, Position newPos)
+    {
+        Debug.Log("officially moving from  " + oldPos.ToGridString() + " to " + newPos.ToGridString());
+        
+        Transform piece = UnityBoardSquare.GetUnityBoardSquare(oldPos).GetPieceOnSquare().transform;
+        Transform newSquare = UnityBoardSquare.GetUnityBoardSquare(newPos).transform;
+        piece.transform.position = newSquare.position;
+        piece.GetComponent<UnityPiece>().SyncCurrentPosition();
+    }
 }

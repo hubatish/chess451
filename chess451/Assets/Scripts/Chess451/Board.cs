@@ -175,7 +175,10 @@ namespace Assets.Scripts.Chess451
             return retVal;
         }
 
-
+        public bool moveBoardPiece(Position p1, Position p2, out bool passant)
+        {
+            return moveBoardPiece(p1.X, p1.Y, p2.X, p2.Y, out passant);
+        }
 
         public bool moveBoardPiece(int x1, int y1, int x2, int y2, out bool passant)
         {
