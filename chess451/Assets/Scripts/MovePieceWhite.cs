@@ -7,8 +7,21 @@ public class MovePieceWhite : MonoBehaviour {
 	PiecePosition pieceScript; //the position of the piece
     BoardRef boardRef;
 
+    public bool isWhite = true;
+    private string GetColliderTag()
+    {
+        if(isWhite)
+        {
+            return "WhitePiece";
+        }
+        else
+        {
+            return "BlackPiece";
+        }
+    }
+
 	// Use this for initialization
-	void Start () {
+	protected virtual void Start () {
 		newPosition = transform.position;
         boardRef = GameObject.FindGameObjectWithTag("BoardBase").GetComponent<BoardRef>();
 	}
@@ -65,7 +78,7 @@ public class MovePieceWhite : MonoBehaviour {
 			//Select piece. We can only select a piece that has the tag "WhitePiece"
 			if(sPiece == null) 
 			{
-				if( (Physics.Raycast (ray, out hit, 100)) & hit.collider.gameObject.tag == "WhitePiece")
+				if( (Physics.Raycast (ray, out hit, 100)) & hit.collider.gameObject.tag == GetColliderTag())
 				{
 					sPiece = hit.transform.gameObject; //sPiece = selected object
 					pieceScript = (PiecePosition) sPiece.GetComponent(typeof(PiecePosition));
@@ -94,20 +107,20 @@ public class MovePieceWhite : MonoBehaviour {
                 bool enPassant = false;
                 if(boardRef.b.moveBoardPiece(row, column, row2, column2, out enPassant))
                 {
-				//Call Networking with this stuff
-				//TODO: Networking and checking should probably use positions in grid coordinates rather than Unity coordinates (like A2 or [0,1] rather than things with z's and floats
-				NetworkPlayer.Instance.MovePiece(sPiece.transform.position,newPosition);
-				sPiece.transform.position = newPosition; //move piece
-				Debug.Log (hit.transform.gameObject.name);
+				    //Call Networking with this stuff
+				    //TODO: Networking and checking should probably use positions in grid coordinates rather than Unity coordinates (like A2 or [0,1] rather than things with z's and floats
+				    NetworkPlayer.Instance.MovePiece(sPiece.transform.position,newPosition);
+				    sPiece.transform.position = newPosition; //move piece
+				    Debug.Log (hit.transform.gameObject.name);
 
-				pieceScript.setMovePos(hit.transform.parent.gameObject);
+				    pieceScript.setMovePos(hit.transform.parent.gameObject);
 
-				sPiece = null; //deselect piece after moving
+				    sPiece = null; //deselect piece after moving
 
-                if(enPassant)
-                {
-                    // TODO: Code to remove en Pessanted piece
-                }
+                    if(enPassant)
+                    {
+                        // TODO: Code to remove en Pessanted piece
+                    }
                 }
 			}
 		}
