@@ -88,7 +88,7 @@ public class MovePieceBlack : MonoBehaviour {
                 int column2 = (int)char.GetNumericValue(posChar[1]) - 1;
 
                 //Debug.Log ("Row: " + posChar[0] + " Column: " + posChar[1]);
-                //Debug.Log ("Coordinates: " + row + "," + column);
+               // Debug.Log ("Coordinates: " + row + "," + column);
                 newPosition.y = sPiece.transform.position.y; //keep height of pieces constant
                 newPosition.z = hit.transform.position.z;
                 bool enPassant = false;
@@ -109,6 +109,7 @@ public class MovePieceBlack : MonoBehaviour {
                         // TODO: Code to remove en Pessanted piece
                     }
                 }
+               
 
 			}
 		}

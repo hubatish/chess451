@@ -49,7 +49,7 @@ namespace Assets.Scripts
                 Position p2 = new Position();
                 p2.X = p.X;
                 p2.Y = p.Y + direction;
-                if (!p2.Failed() && x.getBoardPiece(p2.X-1, p2.Y-1).Equals(null))
+                if (!p2.Failed() && Object.Equals(x.getBoardPiece(p2.X-1, p2.Y-1),null))
                 tempList.Add(p2);
 
                 p2.Reset();
@@ -59,7 +59,7 @@ namespace Assets.Scripts
                     p2.X = p.X;
                     p2.Y = p.Y + (direction * 2);
 
-                    if (!p2.Failed() && x.getBoardPiece(p2.X-1, p2.Y-1).Equals(null))
+                    if (!p2.Failed() && Object.Equals(x.getBoardPiece(p2.X-1, p2.Y-1),null))
                     tempList.Add(p2);
 
                     p2.Reset();
@@ -70,13 +70,13 @@ namespace Assets.Scripts
                
                 p2.X = p.X -1;
                 p2.Y = p.Y + direction;
-                if (!p2.Failed() && !x.getBoardPiece(p2.X-1, p2.Y-1).Equals(null))
+                if (!p2.Failed() && !Object.Equals(x.getBoardPiece(p2.X-1, p2.Y-1),null))
                     tempList.Add(p2);
                 p2.Reset();
                 // En Pessant left. Does not handle capture yet
                 p2.X = p.X - 1;
                 p2.Y = p.Y + direction;
-                if(!p2.Failed() && !x.getBoardPiece(p2.X-1, p2.Y-direction-1).Equals(null))
+                if(!p2.Failed() && !Object.Equals(x.getBoardPiece(p2.X-1, p2.Y-direction-1),null))
                 {
                     Piece tempPiece = x.getBoardPiece(p2.X-1,p2.Y - direction-1);
                     if(tempPiece is Pawn)
@@ -98,7 +98,7 @@ namespace Assets.Scripts
                     {
                         // If it's not an allied  piece...
                         Piece tempPiece = x.getBoardPiece(temp.X - 1, temp.Y - 1);
-                        if ((tempPiece.Equals(null)) || (tempPiece.color != color))
+                        if ((Object.Equals(tempPiece,null)) || (tempPiece.color != color))
                         {
                             // It's valid
                             t.SetSpot(temp.X - 1, temp.Y - 1, true);

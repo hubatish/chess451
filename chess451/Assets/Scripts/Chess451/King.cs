@@ -67,7 +67,7 @@ namespace Assets.Scripts.Chess451
                     {
                         // If it's not an allied  piece...
                         Piece tempPiece = x.getBoardPiece(temp.X - 1, temp.Y - 1);
-                        if ((tempPiece.Equals(null)) || (tempPiece.color != color))
+                        if ((Object.Equals(tempPiece,null)) || (tempPiece.color != color))
                         {
                             // It's valid
                             t.SetSpot(temp.X - 1, temp.Y - 1, true);

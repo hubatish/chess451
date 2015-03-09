@@ -65,13 +65,14 @@ namespace Assets.Scripts.Chess451
             for (int i = 0; i < 8; i++)
             {
                 p.X = i + 1;
-                _board[i, 7] = new Pawn(PIECE_COLOR.BLACK, p);
+                _board[i, 6] = new Pawn(PIECE_COLOR.BLACK, p);
             }
         }
 
 
         public bool isValidMove(int x1, int y1, int x2, int y2)
         {
+            
             ThreatMap t = _board[x1, y1].getMoves().Invoke(this);
             if (t.GetSpot(x2, y2))
                 return true;

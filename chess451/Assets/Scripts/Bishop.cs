@@ -33,7 +33,7 @@ namespace Assets.Scripts
                 bool found = false;
                 while (!found && !p2.Failed())
                 {
-                    if (!x.getBoardPiece(p2.X, p2.Y).Equals(null))
+                    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
                     {
                         found = true;
                     }
@@ -47,7 +47,7 @@ namespace Assets.Scripts
                 found = false;
                 while (!found && !p2.Failed())
                 {
-                    if (!x.getBoardPiece(p2.X, p2.Y).Equals(null))
+                    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
                     {
                         found = true;
                     }
@@ -63,7 +63,7 @@ namespace Assets.Scripts
                 found = false;
                 while (!found && !p2.Failed())
                 {
-                    if (!x.getBoardPiece(p2.X, p2.Y).Equals(null))
+                    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
                     {
                         found = true;
                     }
@@ -77,7 +77,7 @@ namespace Assets.Scripts
                 found = false;
                 while (!found && !p2.Failed())
                 {
-                    if (!x.getBoardPiece(p2.X, p2.Y).Equals(null))
+                    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
                     {
                         found = true;
                     }
@@ -95,7 +95,7 @@ namespace Assets.Scripts
                     {
                         // If it's not an allied  piece...
                         Piece tempPiece = x.getBoardPiece(temp.X - 1, temp.Y - 1);
-                        if ((tempPiece.Equals(null)) || (tempPiece.color != color))
+                        if ((Object.Equals(tempPiece,null)) || (tempPiece.color != color))
                         {
                             // It's valid
                             t.SetSpot(temp.X - 1, temp.Y - 1, true);
