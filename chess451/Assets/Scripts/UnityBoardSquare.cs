@@ -34,7 +34,7 @@ public class UnityBoardSquare : MonoBehaviour
                 return hit.transform.gameObject;
             }        
         }
-        Debug.Log(gameObject.name + " found no piec");
+        Debug.Log(gameObject.name + " found no piece");
         return null;
     }
 }
