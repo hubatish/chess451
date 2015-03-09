@@ -133,9 +133,35 @@ namespace Assets.Scripts.Chess451
         public Piece getBoardPiece(int x, int y)
         { return _board[x, y]; }
 
+        public bool Stalemate()
+        {
+            bool retVal = true;
+            foreach (Piece p in _board)
+            {
+                if (!Object.Equals(p, null))
+                {
+                    ThreatMap t = p.getMoves().Invoke(this);
+                    for (int i = 0; i < 8; i++)
+                    {
+                        for (int j = 0; j < 8; j++)
+                        {
+                            if (t.GetSpot(i, j))
+                            {
+                                retVal = false;
+                            }
+                        }
+                    }
+                    //tList1.Add(t);
+                }
+
+
+            }
+            return retVal;
+        }
 
         public bool Check(PIECE_COLOR c, out bool mate)
         {
+            King myKing = new King(c, new Position());
             mate = false;
             bool retVal = false;
             List<Piece> checkingPieces = new List<Piece>();
@@ -143,10 +169,12 @@ namespace Assets.Scripts.Chess451
             Dictionary<Piece, ThreatMap> d = new Dictionary<Piece, ThreatMap>();
             foreach(Piece p in _board)
             {
+                if(!Object.Equals(p, null))
+                {
                 ThreatMap t = p.getMoves().Invoke(this);
                 d.Add(p, t);
                 //tList1.Add(t);
-
+                }
                 
                
             }
@@ -163,12 +191,81 @@ namespace Assets.Scripts.Chess451
 
                             retVal = true;
                             checkingPieces.Add(p);
-                            // can the king move out?
+                            d.Remove(p);
+                            myKing = (King)_board[i, j];    
                         }
                         
                     }
                 }
             }
+
+            // Checkmate code begins here. It's complicated
+            if (checkingPieces.Count != 0)
+            {
+               
+                Dictionary<Piece,ThreatMap> checkTs = new Dictionary<Piece,ThreatMap>();
+                foreach (Piece p in checkingPieces)
+                {
+                    checkTs.Add( p,p.getMoves().Invoke(this));    
+                }
+               
+                // Step 1: Can one of my pieces block it
+                foreach (Piece p2 in checkTs.Keys)
+                {
+
+                    
+                    foreach (Piece p in d.Keys)
+                    {
+                        for (int j = 0; j < 8; j++)
+                            for (int k = 0; k < 8; k++)
+                            {
+                                if (p.color == c && d[p].GetSpot(j, k) && (checkTs[p2].GetSpot(j, k) || ((j+1) == p2.position.X && (k + 1) == p2.position.Y )) )
+                                {
+                                    checkingPieces.Remove(p);
+                                    goto Bottom;
+                                }
+                            }
+                    }
+                Bottom:
+                    continue; 
+
+                }
+
+
+                if (checkingPieces.Count != 0) // if we STILL have things checking the king
+                {
+                    ThreatMap kingThreat = myKing.getMoves().Invoke(this);
+                    mate = true; // Checkmate is now possible
+                    // Strip checking pieces
+                    foreach (Piece p in checkingPieces)
+                    {
+                        for (int i = 0; i < 8; i++)  
+                            for (int j = 0; j < 8; j++)
+                            {
+                                if (checkTs[p].GetSpot(i, j))
+                                    kingThreat.SetSpot(i, j, false);
+                            }
+                    }
+                    // Strip all other pieces
+                    foreach (Piece p in d.Keys)
+                    {
+                        for (int i = 0; i < 8; i++)
+                            for (int j = 0; j < 8; j++)
+                            {
+                                if (d[p].GetSpot(i, j))
+                                    kingThreat.SetSpot(i, j, false);
+                            }
+                    }
+
+                    for (int i = 0; i < 8; i++)
+                            for (int j = 0; j < 8; j++)
+                                if(kingThreat.GetSpot(i,j)
+                                    mate = false; // if the king has even one legal move, this is not checkmate
+                }
+
+            }
+
+
 
 
 
@@ -184,17 +281,38 @@ namespace Assets.Scripts.Chess451
         {
             bool isValid = isValidMove(x1, y1, x2, y2);
              passant = false;
+             Piece tempPassant = new Pawn(PIECE_COLOR.WHITE, new Position());
             if (isValid)
             {
+                
                 if (_board[x1, y1] is Pawn && x2 != x1 && Object.Equals(_board[x2, y2], null))
                 {
+                    tempPassant = _board[x2, y1];
                     //Capture en passent piece
                     _board[x2, y1] = null;
                     passant = true;
                 }
+                Piece tempPiece = _board[x2, y2];
+
                 _board[x2, y2] = _board[x1, y1];
 
+
+
                 _board[x1, y1] = null;
+                bool unused;
+
+                if(Check(_board[x2, y2].color,  out unused)) // Rollback illegal moves (mostly pins)
+                {
+                    _board[x1, y1] = _board[x2, y2];
+                    _board[x2, y2] = tempPiece;
+
+                    if (passant)
+                    {
+                        _board[x2, y1] = tempPassant;
+                    }
+                    return false;
+                }
+
             }
             return isValid;
         }

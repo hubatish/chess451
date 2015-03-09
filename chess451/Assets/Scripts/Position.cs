@@ -9,6 +9,8 @@ using UnityEngine;
     /// Author: qtr23
     /// Z.H. 3-8:
     ///     Added functionality to convert to and from grid strings, vector3s
+    /// qtr23 3-9
+    ///     Corrected conversion - Positions are indexed begining at 1
     /// </summary>
     public class Position
     {
@@ -45,9 +47,11 @@ using UnityEngine;
             
             XMAX = CHESSDEFAULT;
             YMAX = CHESSDEFAULT;
+            x = 1;
+            y = 1;
 
-            x = row;
-            y = column;
+            X = row;
+            Y = column;
         }
 
         public Position(Vector3 v)
@@ -108,37 +112,37 @@ using UnityEngine;
             switch (row)
             {
                 case 'A':
-                    return 0;
-                    break;
-
-                case 'B':
                     return 1;
                     break;
 
-                case 'C':
+                case 'B':
                     return 2;
                     break;
 
-                case 'D':
+                case 'C':
                     return 3;
                     break;
 
-                case 'E':
+                case 'D':
                     return 4;
                     break;
 
-                case 'F':
+                case 'E':
                     return 5;
                     break;
 
-                case 'G':
+                case 'F':
                     return 6;
                     break;
 
-                case 'H':
+                case 'G':
                     return 7;
                     break;
-                default: return -1;
+
+                case 'H':
+                    return 8;
+                    break;
+                default: return -1; // PROBLEM - Occasionally sees "W" or "B" for reasons I don't understand
                     break;
             }
         }
@@ -146,35 +150,35 @@ using UnityEngine;
         {
             switch (row)
             {
-                case 0:
+                case 1:
                     return 'A';
                     break;
 
-                case 1:
+                case 2:
                     return 'B';
                     break;
 
-                case 2:
+                case 3:
                     return 'C';
                     break;
 
-                case 3:
+                case 4:
                     return 'D';
                     break;
 
-                case 4:
+                case 5:
                     return 'E';
                     break;
 
-                case 5:
+                case 6:
                     return 'F';
                     break;
 
-                case 6:
+                case 7:
                     return 'G';
                     break;
 
-                case 7:
+                case 8:
                     return 'H';
                     break;
                 default: return '0';

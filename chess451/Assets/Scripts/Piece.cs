@@ -38,10 +38,10 @@ public abstract class Piece
         pos = new Position();
         hasMoved = false;
     }
-	virtual protected Position position
+	virtual public Position position
     {
         get { return pos; }
-        set
+        protected set
         {
             if (!hasMoved) { hasMoved = true; }
             pos = value;
