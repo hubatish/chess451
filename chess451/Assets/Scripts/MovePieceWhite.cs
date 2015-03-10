@@ -40,6 +40,7 @@ public class MovePieceWhite : MonoBehaviour {
 			{
 				if( (Physics.Raycast (ray, out hit, 100)) & hit.collider.gameObject.tag == GetColliderTag())
 				{
+					Debug.Log ("sweg");
 					sPiece = hit.transform.gameObject; //sPiece = selected object
 					pieceScript = (UnityPiece) sPiece.GetComponent(typeof(UnityPiece));
 				}
@@ -83,7 +84,7 @@ public class MovePieceWhite : MonoBehaviour {
 
                 //the checks give null references right now
 
-                if(boardRef.b.moveBoardPiece(oldPos,newPos, out enPassant))
+               // if(boardRef.b.moveBoardPiece(oldPos,newPos, out enPassant))
 
                // if(boardRef.b.moveBoardPiece(oldPos,newPos, out enPassant))
 
