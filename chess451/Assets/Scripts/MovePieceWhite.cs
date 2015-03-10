@@ -73,40 +73,46 @@ public class MovePieceWhite : MonoBehaviour {
 
 				}
 
-                bool enPassant = false;
+               
 	
 				//XS 8:24 PM 
 				//Capture piece of the opposite color if they collide.
-				if((sPiece.collider.gameObject.tag == "WhitePiece" & hit.collider.gameObject.tag == "BlackPiece") | sPiece.collider.gameObject.tag == "BlackPiece" & hit.collider.gameObject.tag == "WhitePiece" )
+				/*if((sPiece.collider.gameObject.tag == "WhitePiece" & hit.collider.gameObject.tag == "BlackPiece") | sPiece.collider.gameObject.tag == "BlackPiece" & hit.collider.gameObject.tag == "WhitePiece" )
 				{
 					Destroy(hit.collider.gameObject);
-				}
+				}*/
 
                 //the checks give null references right now
 
-               // if(boardRef.b.moveBoardPiece(oldPos,newPos, out enPassant))
-
-               // if(boardRef.b.moveBoardPiece(oldPos,newPos, out enPassant))
-
-                {
+				sPiece = null; //deselect piece after moving
+			
+               
 				   NetworkPlayer.Instance.MovePiece(oldPos,newPos);
 
-				    sPiece = null; //deselect piece after moving
-
-                    if(enPassant)
-                    {
-                        // TODO: Code to remove en Pessanted piece
-                    }
-                } 
+                    
+                
 			}
 		}
 	}
 
+    public void TryMovePiece(Position oldPos, Position newPos)
+    {
+        bool enPassant = false;
+        //Debug.Log("officially moving from  " + oldPos.ToGridString() + " to " + newPos.ToGridString());
+        if (boardRef.b.moveBoardPiece(oldPos, newPos, out enPassant))
+        {
+            OfficiallyMovePiece(oldPos, newPos);
+            if (enPassant)
+            {
+                // TODO: Code to remove en Pessanted piece
+            }
+        }
+
+    }
+
     //Update the 3d board with the piece movement
     public void OfficiallyMovePiece(Position oldPos, Position newPos)
     {
-        //Debug.Log("officially moving from  " + oldPos.ToGridString() + " to " + newPos.ToGridString());
-        
         Transform piece = UnityBoardSquare.GetUnityBoardSquare(oldPos).GetPieceOnSquare().transform;
         Transform newSquare = UnityBoardSquare.GetUnityBoardSquare(newPos).transform;
         piece.transform.position = newSquare.position;

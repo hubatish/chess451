@@ -28,7 +28,9 @@ public abstract class Piece
     public Piece(PIECE_COLOR c, Position startPos)
     {
         color = c;
-        pos = startPos;
+        pos = new Position();
+        pos.X = startPos.X;
+        pos.Y = startPos.Y;
         hasMoved = false;
     }
 

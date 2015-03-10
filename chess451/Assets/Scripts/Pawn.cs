@@ -49,10 +49,13 @@ namespace Assets.Scripts
                 Position p2 = new Position();
                 p2.X = p.X;
                 p2.Y = p.Y + direction;
+                
                 if (!p2.Failed() && Object.Equals(x.getBoardPiece(p2.X-1, p2.Y-1),null))
                 tempList.Add(p2);
 
-                p2.Reset();
+                p2 = new Position();
+
+                //p2.Reset();
 
                 if (!hasMoved)
                 {
@@ -61,8 +64,8 @@ namespace Assets.Scripts
 
                     if (!p2.Failed() && Object.Equals(x.getBoardPiece(p2.X-1, p2.Y-1),null))
                     tempList.Add(p2);
-
-                    p2.Reset();
+					p2 = new Position();
+                    //p2.Reset();
                 }
                 
 
@@ -76,7 +79,7 @@ namespace Assets.Scripts
                 // En Pessant left. Does not handle capture yet
                 p2.X = p.X - 1;
                 p2.Y = p.Y + direction;
-                if(!p2.Failed() && !Object.Equals(x.getBoardPiece(p2.X-1, p2.Y-direction-1),null))
+                if(!p2.Failed() && !Object.Equals(x.getBoardPiece(p2.X-1, p2.Y-direction-1),null) && x.getBoardPiece(p2.X-1, p2.Y-direction-1).color != color)
                 {
                     Piece tempPiece = x.getBoardPiece(p2.X-1,p2.Y - direction-1);
                     if(tempPiece is Pawn)
@@ -84,7 +87,7 @@ namespace Assets.Scripts
                         Pawn tempPawn = (Pawn)tempPiece;
                         if (tempPawn.inStep)
                         {
-
+							// LARGE CHUNJES OF CODE MISSING HERE;
                         }
                     }
                 }
@@ -96,10 +99,13 @@ namespace Assets.Scripts
                     // Is it on the board
                     if (!temp.Failed())
                     {
+                            
                         // If it's not an allied  piece...
                         Piece tempPiece = x.getBoardPiece(temp.X - 1, temp.Y - 1);
                         if ((Object.Equals(tempPiece,null)) || (tempPiece.color != color))
                         {
+                            UnityEngine.Debug.Log("HIT!");
+                            UnityEngine.Debug.Log(temp.X + " " + temp.Y);
                             // It's valid
                             t.SetSpot(temp.X - 1, temp.Y - 1, true);
                         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
 namespace Assets.Scripts.Chess451
 {
     public class Board
@@ -72,7 +73,7 @@ namespace Assets.Scripts.Chess451
 
         public bool isValidMove(int x1, int y1, int x2, int y2)
         {
-            
+            UnityEngine.Debug.Log(_board[x1, y1].position.X + " " + _board[x1, y1].position.Y);
             ThreatMap t = _board[x1, y1].getMoves().Invoke(this);
             if (t.GetSpot(x2, y2))
                 return true;
@@ -281,6 +282,7 @@ namespace Assets.Scripts.Chess451
         {
             bool isValid = isValidMove(x1, y1, x2, y2);
              passant = false;
+
              Piece tempPassant = new Pawn(PIECE_COLOR.WHITE, new Position());
             if (isValid)
             {
@@ -293,7 +295,7 @@ namespace Assets.Scripts.Chess451
                     passant = true;
                 }
                 Piece tempPiece = _board[x2, y2];
-
+                
                 _board[x2, y2] = _board[x1, y1];
 
 
@@ -301,7 +303,7 @@ namespace Assets.Scripts.Chess451
                 _board[x1, y1] = null;
                 bool unused;
 
-                if(Check(_board[x2, y2].color,  out unused)) // Rollback illegal moves (mostly pins)
+               /* if(Check(_board[x2, y2].color,  out unused)) // Rollback illegal moves (mostly pins)
                 {
                     _board[x1, y1] = _board[x2, y2];
                     _board[x2, y2] = tempPiece;
@@ -311,7 +313,9 @@ namespace Assets.Scripts.Chess451
                         _board[x2, y1] = tempPassant;
                     }
                     return false;
-                }
+                }*/
+				_board[x2,y2].position.X = x2 +1;
+				_board[x2,y2].position.Y = y2+1;
 
             }
             return isValid;
