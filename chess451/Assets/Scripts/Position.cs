@@ -19,7 +19,7 @@ using UnityEngine;
         int XMAX;
         int YMAX;
         const int CHESSDEFAULT = 8;
-        bool failed;
+        bool failed = false;
 
         public Position(int xMAX, int yMAX)
         {

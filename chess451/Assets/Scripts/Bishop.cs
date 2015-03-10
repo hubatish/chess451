@@ -33,13 +33,16 @@ namespace Assets.Scripts
                 bool found = false;
                 while (!found && !p2.Failed())
                 {
-                    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
+                    if (!Object.Equals(x.getBoardPiece(p2),null))
                     {
                         found = true;
                     }
                     tempList.Add(p2);
-                    p2.X = p2.X + 1;
-                    p2.Y = p2.Y + 1;
+                    //create a new Position for the next entry in list
+                    Position oldP = p2;
+                    p2 = new Position();
+                    p2.X = oldP.X + 1;
+                    p2.Y = oldP.Y + 1;
                 }
                 p2 = new Position();
                 p2.X = p.X = 1;
@@ -47,13 +50,15 @@ namespace Assets.Scripts
                 found = false;
                 while (!found && !p2.Failed())
                 {
-                    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
+                    if (!Object.Equals(x.getBoardPiece(p2),null))
                     {
                         found = true;
                     }
-                    tempList.Add(p2);
-                    p2.Y = p2.Y - 1;
-                    p2.X = p2.X - 1;
+                    //create a new Position for the next entry in list
+                    Position oldP = p2;
+                    p2 = new Position();
+                    p2.X = oldP.X - 1;
+                    p2.Y = oldP.Y - 1;
                 }
 
                 // Diagnal left Bullshit

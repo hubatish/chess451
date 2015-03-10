@@ -3,7 +3,6 @@ using System.Collections;
 
 public class MovePieceWhite : MonoBehaviour {
 	public GameObject sPiece; //Selected piece
-	private Vector3 newPosition; //Where we move the piece
 	UnityPiece pieceScript; //the position of the piece
     BoardRef boardRef;
 
@@ -22,7 +21,6 @@ public class MovePieceWhite : MonoBehaviour {
 
 	// Use this for initialization
 	protected virtual void Start () {
-		newPosition = transform.position;
         boardRef = GameObject.FindGameObjectWithTag("BoardBase").GetComponent<BoardRef>();
 	}
 
@@ -49,9 +47,6 @@ public class MovePieceWhite : MonoBehaviour {
 			else if (Physics.Raycast (ray, out hit, 100)) 
 			{
 				Debug.Log(sPiece.transform.gameObject.name);
-				//newPosition.x = hit.transform.position.x;
-				newPosition.y = sPiece.transform.position.y; //keep height of pieces constant
-				//newPosition.z = hit.transform.position.z;
 
 				//QueensideCastle. Add the canQueensideCastle from move validation
 
@@ -123,7 +118,8 @@ public class MovePieceWhite : MonoBehaviour {
             }
         }
 
-        piece.transform.position = newSquare.position;
+        //don't change y value (ZH grab from XS 3-9, midnight)
+        piece.transform.position = new Vector3(newSquare.position.x,piece.transform.position.y,newSquare.position.z);
         piece.GetComponent<UnityPiece>().SyncCurrentPosition();
     } 
 }
