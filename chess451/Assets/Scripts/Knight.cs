@@ -23,39 +23,45 @@ namespace Assets.Scripts
 
                 // Knight Valid positions = L shaped bullshit
                 // 
+                tempList[0] = new Position();
                 tempList[0].X = p.X + 1;
-                tempList[0].Y = p.Y + 3;
+                tempList[0].Y = p.Y + 2;
 
 
-
-                tempList[1].X = p.X + 3;
+                tempList[1] = new Position();
+                tempList[1].X = p.X + 2;
                 tempList[1].Y = p.Y + 1;
 
 
-
-                tempList[2].X = p.X + 3;
+                tempList[2] = new Position();
+                tempList[2].X = p.X + 2;
                 tempList[2].Y = p.Y - 1;
 
 
-
+                tempList[3] = new Position();
                 tempList[3].X = p.X - 1;
-                tempList[3].Y = p.Y + 3;
+                tempList[3].Y = p.Y + 2;
 
+                tempList[4] = new Position();
                 tempList[4].X = p.X - 1;
-                tempList[4].X = p.Y - 3;
+                tempList[4].X = p.Y - 2;
 
-                tempList[5].X = p.X - 3;
+                tempList[5] = new Position();
+                tempList[5].X = p.X - 2;
                 tempList[5].X = p.Y - 1;
 
+                tempList[6] = new Position();
                 tempList[6].X = p.X + 1;
-                tempList[6].Y = p.Y - 3;
+                tempList[6].Y = p.Y - 2;
 
-                tempList[7].X = p.X - 3;
+                tempList[7] = new Position();
+                tempList[7].X = p.X - 2;
                 tempList[7].Y = p.Y + 1;
 
                 // The following is common in Most Pieces
                 foreach (Position temp in tempList)
                 {
+                    UnityEngine.Debug.Log(temp.X + " " + temp.Y);
                     // Is it on the board
                     if (!temp.Failed())
                     {
@@ -65,6 +71,8 @@ namespace Assets.Scripts
                         {
                             // It's valid
                             t.SetSpot(temp.X-1, temp.Y-1, true);
+                            UnityEngine.Debug.Log("HIT!");
+                            UnityEngine.Debug.Log(temp.X + " " + temp.Y);
                         }
                     }
                 }
