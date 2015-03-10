@@ -20,10 +20,14 @@ namespace Assets.Scripts.Chess451
                 // Calculate a list of valid positions
                 Position[] tempList = new Position[8];
 
+                for (int i = 0; i < 8; i++)
+                    tempList[i] = new Position();
+                
 
                 // King Valid positions = surrounding 8 spaces
 
                 // right
+                
                 tempList[0].X = p.X  + 1;
                 tempList[0].Y = p.Y ;
 
