@@ -73,7 +73,7 @@ namespace Assets.Scripts.Chess451
 
         public bool isValidMove(int x1, int y1, int x2, int y2)
         {
-            UnityEngine.Debug.Log(_board[x1, y1].position.X + " " + _board[x1, y1].position.Y);
+            UnityEngine.Debug.Log( "Moving from " + _board[x1, y1].position.X + " " + _board[x1, y1].position.Y + " to " + (x2 + 1) + " " + (y2 + 1));
             ThreatMap t = _board[x1, y1].getMoves().Invoke(this);
             if (t.GetSpot(x2, y2))
                 return true;
@@ -286,7 +286,7 @@ namespace Assets.Scripts.Chess451
         {
             bool isValid = isValidMove(x1, y1, x2, y2);
              passant = false;
-
+             UnityEngine.Debug.Log(isValid);
              Piece tempPassant = new Pawn(PIECE_COLOR.WHITE, new Position());
             if (isValid)
             {

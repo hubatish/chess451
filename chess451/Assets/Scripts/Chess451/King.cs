@@ -22,8 +22,8 @@ namespace Assets.Scripts.Chess451
 
                 for (int i = 0; i < 8; i++)
                     tempList[i] = new Position();
-                
 
+                UnityEngine.Debug.Log("King Begin At " + p.X + " " + p.Y);
                 // King Valid positions = surrounding 8 spaces
 
                 // right
@@ -49,11 +49,11 @@ namespace Assets.Scripts.Chess451
 
                 //tl
                 tempList[4].X = p.X - 1;
-                tempList[4].X = p.Y + 1;
+                tempList[4].Y = p.Y + 1;
 
                 // tr
                 tempList[5].X = p.X + 1;
-                tempList[5].X = p.Y + 1;
+                tempList[5].Y = p.Y + 1;
 
                 // bl
                 tempList[6].X = p.X - 1;
@@ -73,6 +73,8 @@ namespace Assets.Scripts.Chess451
                         Piece tempPiece = x.getBoardPiece(temp.X - 1, temp.Y - 1);
                         if ((Object.Equals(tempPiece,null)) || (tempPiece.color != color))
                         {
+                            UnityEngine.Debug.Log("Hit!");
+                            UnityEngine.Debug.Log("At " + temp.X + " " + temp.Y);
                             // It's valid
                             t.SetSpot(temp.X - 1, temp.Y - 1, true);
                         }

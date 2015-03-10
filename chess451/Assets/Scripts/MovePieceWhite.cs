@@ -59,7 +59,7 @@ public class MovePieceWhite : MonoBehaviour {
 				Position WRook1NewPos = new Position(GameObject.Find("D1").name);
 				Position WRook1OldPos = new Position(GameObject.Find("ChessPieceKnightWhite").name);
 
-				if(sPiece.transform.gameObject.name == "ChessPieceKingWhite") // & hit.transform.gameObject.name == "ChessPieceRookWhite1") //& canQueensideCastle)
+				/*if(sPiece.transform.gameObject.name == "ChessPieceKingWhite") // & hit.transform.gameObject.name == "ChessPieceRookWhite1") //& canQueensideCastle)
 				{
 					GameObject kingDestination = GameObject.Find("C1");
 
@@ -67,7 +67,7 @@ public class MovePieceWhite : MonoBehaviour {
 					newPos = new Position(kingDestination.name);
 
 				}
-	
+                */	
 				//XS 8:24 PM 
 				//Capture piece of the opposite color if they collide.
 				/*if((sPiece.collider.gameObject.tag == "WhitePiece" & hit.collider.gameObject.tag == "BlackPiece") | sPiece.collider.gameObject.tag == "BlackPiece" & hit.collider.gameObject.tag == "WhitePiece" )

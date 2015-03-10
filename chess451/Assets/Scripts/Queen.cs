@@ -26,121 +26,17 @@ namespace Assets.Scripts
                 // From the Queen's position, find add every empty space up to the first unit or the edge of the board
                 // Add it to our list of potential positions
 
-                // Vertical bullshit
-                Position p2 = new Position();
-                p2.X = p.X;
-                p2.Y = p.Y + 1;
-                bool found = false;
-                while (!found && !p2.Failed())
-                {
-                    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
-                    {
-                        found = true;
-                    }
-                    tempList.Add(p2);
-                    p2.Y = p2.Y + 1;
-                }
-                p2 = new Position();
-                p2.X = p.X;
-                p2.Y = p.Y - 1;
-                found = false;
-                while (!found && !p2.Failed())
-                {
-                    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
-                    {
-                        found = true;
-                    }
-                    tempList.Add(p2);
-                    p2.Y = p2.Y - 1;
-                }
+                AddToListInDirection(tempList, p, 0, -1, x);
+                AddToListInDirection(tempList, p, 1, 0, x);
+                AddToListInDirection(tempList, p, -1, 0, x);
+                AddToListInDirection(tempList, p, 0, 1, x);
 
-                // Horizontal Bullshit
-                p2 = new Position();
-                p2.X = p.X + 1;
-                p2.Y = p.Y;
-                found = false;
-                while (!found && !p2.Failed())
-                {
-                    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
-                    {
-                        found = true;
-                    }
-                    tempList.Add(p2);
-                    p2.X = p2.X + 1;
-                }
-                p2 = new Position();
-                p2.X = p.X - 1;
-                p2.Y = p.Y;
-                found = false;
-                while (!found && !p2.Failed())
-                {
-                    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
-                    {
-                        found = true;
-                    }
-                    tempList.Add(p2);
-                    p2.X = p2.X - 1;
-                }
+                AddToListInDirection(tempList, p, 1, 1, x);
+                AddToListInDirection(tempList, p, 1, -1, x);
+                AddToListInDirection(tempList, p, -1, 1, x);
+                AddToListInDirection(tempList, p, -1, -1, x);
 
-                // diagnal right
-                p2 = new Position();
-                p2.X = p.X + 1;
-                p2.Y = p.Y + 1;
-                found = false;
-                while (!found && !p2.Failed())
-                {
-                    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
-                    {
-                        found = true;
-                    }
-                    tempList.Add(p2);
-                    p2.X = p2.X + 1;
-                    p2.Y = p2.Y + 1;
-                }
-                p2 = new Position();
-                p2.X = p.X = 1;
-                p2.Y = p.Y - 1;
-                found = false;
-                while (!found && !p2.Failed())
-                {
-                    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
-                    {
-                        found = true;
-                    }
-                    tempList.Add(p2);
-                    p2.Y = p2.Y - 1;
-                    p2.X = p2.X - 1;
-                }
 
-                // Diagnal left Bullshit
-                p2 = new Position();
-                p2.X = p.X + 1;
-                p2.Y = p.Y - 1;
-                found = false;
-                while (!found && !p2.Failed())
-                {
-                    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
-                    {
-                        found = true;
-                    }
-                    tempList.Add(p2);
-                    p2.X = p2.X + 1;
-                    p2.Y = p2.Y - 1;
-                }
-                p2 = new Position();
-                p2.X = p.X - 1;
-                p2.Y = p.Y + 1;
-                found = false;
-                while (!found && !p2.Failed())
-                {
-                    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
-                    {
-                        found = true;
-                    }
-                    tempList.Add(p2);
-                    p2.X = p2.X - 1;
-                    p2.Y = p2.Y + 1;
-                }
                 // The following is common in Most Pieces
                 foreach (Position temp in tempList)
                 {
