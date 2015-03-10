@@ -219,6 +219,7 @@ namespace Assets.Scripts.Chess451
             {
                 d.Remove(p);
             }
+            d.Remove(myKing);
             // Checkmate code begins here. It's complicated
             if (retVal)
             {
