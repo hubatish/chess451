@@ -41,7 +41,7 @@ namespace Assets.Scripts
                     p2.X = p2.X + 1;
                     p2.Y = p2.Y + 1;
                 }
-                p2.Reset();
+                p2 = new Position();
                 p2.X = p.X = 1;
                 p2.Y = p.Y - 1;
                 found = false;
@@ -57,7 +57,7 @@ namespace Assets.Scripts
                 }
 
                 // Diagnal left Bullshit
-                p2.Reset();
+                p2 = new Position();
                 p2.X = p.X + 1;
                 p2.Y = p.Y - 1;
                 found = false;
@@ -71,7 +71,7 @@ namespace Assets.Scripts
                     p2.X = p2.X + 1;
                     p2.Y = p2.Y - 1;
                 }
-                p2.Reset();
+                p2 = new Position();
                 p2.X = p.X - 1;
                 p2.Y = p.Y + 1;
                 found = false;

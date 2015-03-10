@@ -55,7 +55,7 @@ namespace Assets.Scripts
 
                 p2 = new Position();
 
-                //p2.Reset();
+                //p2 = new Position();
 
                 if (!hasMoved)
                 {
@@ -65,7 +65,7 @@ namespace Assets.Scripts
                     if (!p2.Failed() && Object.Equals(x.getBoardPiece(p2.X-1, p2.Y-1),null))
                     tempList.Add(p2);
 					p2 = new Position();
-                    //p2.Reset();
+                    //p2 = new Position();
                 }
                 
 
@@ -75,7 +75,7 @@ namespace Assets.Scripts
                 p2.Y = p.Y + direction;
                 if (!p2.Failed() && !Object.Equals(x.getBoardPiece(p2.X-1, p2.Y-1),null))
                     tempList.Add(p2);
-                p2.Reset();
+                p2 = new Position();
                 // En Pessant left. Does not handle capture yet
                 p2.X = p.X - 1;
                 p2.Y = p.Y + direction;
@@ -91,8 +91,29 @@ namespace Assets.Scripts
                         }
                     }
                 }
-               
 
+                // Diagnal right
+
+                p2.X = p.X + 1;
+                p2.Y = p.Y + direction;
+                if (!p2.Failed() && !Object.Equals(x.getBoardPiece(p2.X - 1, p2.Y - 1), null))
+                    tempList.Add(p2);
+                p2 = new Position();
+                // En Pessant left. Does not handle capture yet
+                p2.X = p.X + 1;
+                p2.Y = p.Y + direction;
+                if (!p2.Failed() && !Object.Equals(x.getBoardPiece(p2.X - 1, p2.Y - direction - 1), null) && x.getBoardPiece(p2.X - 1, p2.Y - direction - 1).color != color)
+                {
+                    Piece tempPiece = x.getBoardPiece(p2.X - 1, p2.Y - direction - 1);
+                    if (tempPiece is Pawn)
+                    {
+                        Pawn tempPawn = (Pawn)tempPiece;
+                        if (tempPawn.inStep)
+                        {
+                            // LARGE CHUNJES OF CODE MISSING HERE;
+                        }
+                    }
+                }
                 // The following is common in Most Pieces
                 foreach (Position temp in tempList)
                 {
@@ -117,6 +138,7 @@ namespace Assets.Scripts
             };
         }
 
+       
 
     }
 }

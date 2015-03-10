@@ -72,8 +72,6 @@ public class MovePieceWhite : MonoBehaviour {
 					newPos = new Position(kingDestination.name);
 
 				}
-
-               
 	
 				//XS 8:24 PM 
 				//Capture piece of the opposite color if they collide.
@@ -85,12 +83,9 @@ public class MovePieceWhite : MonoBehaviour {
                 //the checks give null references right now
 
 				sPiece = null; //deselect piece after moving
-			
-               
-				   NetworkPlayer.Instance.MovePiece(oldPos,newPos);
 
-                    
-                
+                //the checks give null references right now
+			    NetworkPlayer.Instance.MovePiece(oldPos,newPos);
 			}
 		}
 	}
@@ -117,5 +112,12 @@ public class MovePieceWhite : MonoBehaviour {
         Transform newSquare = UnityBoardSquare.GetUnityBoardSquare(newPos).transform;
         piece.transform.position = newSquare.position;
         piece.GetComponent<UnityPiece>().SyncCurrentPosition();
+
+		Transform newPiece = UnityBoardSquare.GetUnityBoardSquare (newPos).GetPieceOnSquare ().transform;
+
+		if((piece.collider.gameObject.tag == "WhitePiece" & newPiece.gameObject.tag == "BlackPiece")  | piece.collider.gameObject.tag == "BlackPiece" & piece.gameObject.tag == "WhitePiece" )
+		{
+			Destroy(newPiece.gameObject);
+		} 
     } 
 }
