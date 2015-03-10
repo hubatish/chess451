@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts.Chess451;
 
 namespace Assets.Scripts
 {
@@ -28,68 +29,73 @@ namespace Assets.Scripts
 
                 // diagnal right
                 Position p2 = new Position();
-                p2.X = p.X + 1;
-                p2.Y = p.Y + 1;
+                //p2.X = p.X + 1;
+                //p2.Y = p.Y + 1;
                 bool found = false;
-                while (!found && !p2.Failed())
-                {
-                    if (!Object.Equals(x.getBoardPiece(p2),null))
-                    {
-                        found = true;
-                    }
-                    tempList.Add(p2);
-                    //create a new Position for the next entry in list
-                    Position oldP = p2;
-                    p2 = new Position();
-                    p2.X = oldP.X + 1;
-                    p2.Y = oldP.Y + 1;
-                }
-                p2 = new Position();
-                p2.X = p.X = 1;
-                p2.Y = p.Y - 1;
-                found = false;
-                while (!found && !p2.Failed())
-                {
-                    if (!Object.Equals(x.getBoardPiece(p2),null))
-                    {
-                        found = true;
-                    }
-                    //create a new Position for the next entry in list
-                    Position oldP = p2;
-                    p2 = new Position();
-                    p2.X = oldP.X - 1;
-                    p2.Y = oldP.Y - 1;
-                }
+                //while (!found && !p2.Failed())
+                //{
+                //    if (!Object.Equals(x.getBoardPiece(p2),null))
+                //    {
+                //        found = true;
+                //    }
+                //    tempList.Add(p2);
+                //    //create a new Position for the next entry in list
+                //    Position oldP = p2;
+                //    p2 = new Position();
+                //    p2.X = oldP.X + 1;
+                //    p2.Y = oldP.Y + 1;
+                //}
+                AddToListInDirection(tempList, p, 1, 1, x);
+                AddToListInDirection(tempList, p, 1, -1, x);
+                AddToListInDirection(tempList, p, -1, 1, x);
+                AddToListInDirection(tempList, p, -1, -1, x);
+                //p2 = new Position();
+                //p2.X = p.X = 1;
+                //p2.Y = p.Y - 1;
+                //found = false;
+                //while (!found && !p2.Failed())
+                //{
+                //    if (!Object.Equals(x.getBoardPiece(p2),null))
+                //    {
+                //        found = true;
+                //    }
+                //    tempList.Add(p2);
+                //    //create a new Position for the next entry in list
+                //    Position oldP = p2;
+                //    p2 = new Position();
+                //    p2.X = oldP.X - 1;
+                //    p2.Y = oldP.Y - 1;
+                //}
 
-                // Diagnal left Bullshit
-                p2 = new Position();
-                p2.X = p.X + 1;
-                p2.Y = p.Y - 1;
-                found = false;
-                while (!found && !p2.Failed())
-                {
-                    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
-                    {
-                        found = true;
-                    }
-                    tempList.Add(p2);
-                    p2.X = p2.X + 1;
-                    p2.Y = p2.Y - 1;
-                }
-                p2 = new Position();
-                p2.X = p.X - 1;
-                p2.Y = p.Y + 1;
-                found = false;
-                while (!found && !p2.Failed())
-                {
-                    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
-                    {
-                        found = true;
-                    }
-                    tempList.Add(p2);
-                    p2.X = p2.X - 1;
-                    p2.Y = p2.Y + 1;
-                }
+                //// Diagnal left Bullshit
+                //p2 = new Position();
+                //p2.X = p.X + 1;
+                //p2.Y = p.Y - 1;
+                //found = false;
+                //while (!found && !p2.Failed())
+                //{
+                //    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
+                //    {
+                //        found = true;
+                //    }
+                //    tempList.Add(p2);
+                //    p2.X = p2.X + 1;
+                //    p2.Y = p2.Y - 1;
+                //}
+                //p2 = new Position();
+                //p2.X = p.X - 1;
+                //p2.Y = p.Y + 1;
+                //found = false;
+                //while (!found && !p2.Failed())
+                //{
+                //    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
+                //    {
+                //        found = true;
+                //    }
+                //    tempList.Add(p2);
+                //    p2.X = p2.X - 1;
+                //    p2.Y = p2.Y + 1;
+                //}
 
 
                 // The following is common in Most Pieces
@@ -111,6 +117,28 @@ namespace Assets.Scripts
                 return t;
 
             };
+        }
+
+        protected void AddToListInDirection(List<Position> positions, Position startPos, int xOffset, int yOffset, Board board)
+        {
+            Position p2 = new Position();
+            p2.X = startPos.X + xOffset;
+            p2.Y = startPos.Y + yOffset;
+            bool found = false;
+            while (!found && !p2.Failed())
+            {
+                if (!Object.Equals(board.getBoardPiece(p2), null))
+                {
+                    found = true;
+                }
+                positions.Add(p2);
+
+                //create a new Position for the next entry in list
+                Position oldP = p2;
+                p2 = new Position();
+                p2.X = oldP.X + xOffset;
+                p2.Y = oldP.Y + yOffset;
+            }
         }
     }
 }
