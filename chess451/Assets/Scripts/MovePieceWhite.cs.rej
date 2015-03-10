@@ -1,0 +1,10 @@
+diff a/chess451/Assets/Scripts/MovePieceWhite.cs b/chess451/Assets/Scripts/MovePieceWhite.cs	(rejected hunks)
+@@ -58,7 +58,7 @@
+ 				newPosition.z = hit.transform.position.z;
+                 bool enPassant = false;
+                 //the checks give null references right now
+-                //if(boardRef.b.moveBoardPiece(oldPos,newPos, out enPassant))
++                if(boardRef.b.moveBoardPiece(oldPos,newPos, out enPassant))
+                 {
+ 				    NetworkPlayer.Instance.MovePiece(oldPos,newPos);
+ 
