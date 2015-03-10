@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using UnityEngine;
+
 
 /// <summary>
 /// Template Pattern for Chess Pieces. Used for generic containers such as board positions and for testing.
@@ -45,6 +45,7 @@ public abstract class Piece
         get { return pos; }
         protected set
         {
+            UnityEngine.Debug.Log("beep");
             if (!hasMoved) { hasMoved = true; }
             pos = value;
         }
@@ -54,5 +55,26 @@ public abstract class Piece
     public abstract Func<Assets.Scripts.Chess451.Board, Assets.Scripts.Chess451.ThreatMap> getMoves();
    // public abstract Del getMoves();
 
+    protected void AddToListInDirection(List<Position> positions, Position startPos, int xOffset, int yOffset, Assets.Scripts.Chess451.Board board)
+    {
+        Position p2 = new Position();
+        p2.X = startPos.X + xOffset;
+        p2.Y = startPos.Y + yOffset;
+        bool found = false;
+        while (!found && !p2.Failed())
+        {
+            if (!Object.Equals(board.getBoardPiece(p2), null))
+            {
+                found = true;
+            }
+            positions.Add(p2);
+
+            //create a new Position for the next entry in list
+            Position oldP = p2;
+            p2 = new Position();
+            p2.X = oldP.X + xOffset;
+            p2.Y = oldP.Y + yOffset;
+        }
+    }
     
 }

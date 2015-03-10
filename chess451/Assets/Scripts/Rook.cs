@@ -27,6 +27,14 @@ namespace Assets.Scripts
                 // Add it to our list of potential positions
 
                 // Vertical bullshit
+                Position p2 = new Position();
+
+                AddToListInDirection(tempList, p, 0, -1, x);
+                AddToListInDirection(tempList, p, 1, 0, x);
+                AddToListInDirection(tempList, p, -1, 0, x);
+                AddToListInDirection(tempList, p, 0, 1, x);
+                /*
+
                 Position p2 =  new Position();
                 p2.X = p.X;
                 p2.Y = p.Y + 1;
@@ -81,8 +89,8 @@ namespace Assets.Scripts
                     tempList.Add(p2);
                     p2.X = p2.X - 1;
                 }
-               
-
+               */
+                UnityEngine.Debug.Log(tempList.Count);
                 // The following is common in Most Pieces
                 foreach (Position temp in tempList)
                 {
@@ -95,6 +103,8 @@ namespace Assets.Scripts
                         {
                             // It's valid
                             t.SetSpot(temp.X-1, temp.Y-1, true);
+                            UnityEngine.Debug.Log("HIT!");
+                            UnityEngine.Debug.Log(temp.X + " " + temp.Y);
                         }
                     }
                 }
@@ -103,5 +113,6 @@ namespace Assets.Scripts
 
             };
         }
+                 
     }
 }
