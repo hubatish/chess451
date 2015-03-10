@@ -110,14 +110,20 @@ public class MovePieceWhite : MonoBehaviour {
     {
         Transform piece = UnityBoardSquare.GetUnityBoardSquare(oldPos).GetPieceOnSquare().transform;
         Transform newSquare = UnityBoardSquare.GetUnityBoardSquare(newPos).transform;
+
+		GameObject pieceOnDestSquare = UnityBoardSquare.GetUnityBoardSquare (newPos).GetPieceOnSquare ();
+
+        if(pieceOnDestSquare!=null)
+        {
+            Transform newPiece = pieceOnDestSquare.transform;
+
+            if ((piece.collider.gameObject.tag == "WhitePiece" & newPiece.gameObject.tag == "BlackPiece") | piece.collider.gameObject.tag == "BlackPiece" & piece.gameObject.tag == "WhitePiece")
+            {
+                Destroy(newPiece.gameObject);
+            }
+        }
+
         piece.transform.position = newSquare.position;
         piece.GetComponent<UnityPiece>().SyncCurrentPosition();
-
-		Transform newPiece = UnityBoardSquare.GetUnityBoardSquare (newPos).GetPieceOnSquare ().transform;
-
-		if((piece.collider.gameObject.tag == "WhitePiece" & newPiece.gameObject.tag == "BlackPiece")  | piece.collider.gameObject.tag == "BlackPiece" & piece.gameObject.tag == "WhitePiece" )
-		{
-			Destroy(newPiece.gameObject);
-		} 
     } 
 }
