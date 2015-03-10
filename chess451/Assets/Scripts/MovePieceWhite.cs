@@ -77,14 +77,11 @@ public class MovePieceWhite : MonoBehaviour {
 	
 				//XS 8:24 PM 
 				//Capture piece of the opposite color if they collide.
-				if((sPiece.collider.gameObject.tag == "WhitePiece" & hit.collider.gameObject.tag == "BlackPiece") | sPiece.collider.gameObject.tag == "BlackPiece" & hit.collider.gameObject.tag == "WhitePiece" )
-				{
-					Destroy(hit.collider.gameObject);
-				}
+
 
                 //the checks give null references right now
 
-               // if(boardRef.b.moveBoardPiece(oldPos,newPos, out enPassant))
+               if(boardRef.b.moveBoardPiece(oldPos,newPos, out enPassant))
 
                // if(boardRef.b.moveBoardPiece(oldPos,newPos, out enPassant))
 
@@ -106,10 +103,21 @@ public class MovePieceWhite : MonoBehaviour {
     public void OfficiallyMovePiece(Position oldPos, Position newPos)
     {
         //Debug.Log("officially moving from  " + oldPos.ToGridString() + " to " + newPos.ToGridString());
-        
+
         Transform piece = UnityBoardSquare.GetUnityBoardSquare(oldPos).GetPieceOnSquare().transform;
         Transform newSquare = UnityBoardSquare.GetUnityBoardSquare(newPos).transform;
         piece.transform.position = newSquare.position;
         piece.GetComponent<UnityPiece>().SyncCurrentPosition();
+
+		Transform newPiece = UnityBoardSquare.GetUnityBoardSquare (newPos).GetPieceOnSquare ().transform;
+
+		if((sPiece.collider.gameObject.tag == "WhitePiece" & newPiece.gameObject.tag == "BlackPiece")  | sPiece.collider.gameObject.tag == "BlackPiece" & newPiece.gameObject.tag == "WhitePiece" )
+		{
+			Destroy(newPiece.gameObject);
+		} 
+		/*if((sPiece.collider.gameObject.tag == "WhitePiece" & hit.collider.gameObject.tag == "BlackPiece") | sPiece.collider.gameObject.tag == "BlackPiece" & hit.collider.gameObject.tag == "WhitePiece" )
+		{
+			Destroy(hit.collider.gameObject);
+		} */
     } 
 }
