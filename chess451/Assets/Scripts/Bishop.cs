@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts.Chess451;
 
 namespace Assets.Scripts
 {
@@ -28,63 +29,12 @@ namespace Assets.Scripts
 
                 // diagnal right
                 Position p2 = new Position();
-                p2.X = p.X + 1;
-                p2.Y = p.Y + 1;
-                bool found = false;
-                while (!found && !p2.Failed())
-                {
-                    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
-                    {
-                        found = true;
-                    }
-                    tempList.Add(p2);
-                    p2.X = p2.X + 1;
-                    p2.Y = p2.Y + 1;
-                }
-                p2 = new Position();
-                p2.X = p.X = 1;
-                p2.Y = p.Y - 1;
-                found = false;
-                while (!found && !p2.Failed())
-                {
-                    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
-                    {
-                        found = true;
-                    }
-                    tempList.Add(p2);
-                    p2.Y = p2.Y - 1;
-                    p2.X = p2.X - 1;
-                }
-
-                // Diagnal left Bullshit
-                p2 = new Position();
-                p2.X = p.X + 1;
-                p2.Y = p.Y - 1;
-                found = false;
-                while (!found && !p2.Failed())
-                {
-                    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
-                    {
-                        found = true;
-                    }
-                    tempList.Add(p2);
-                    p2.X = p2.X + 1;
-                    p2.Y = p2.Y - 1;
-                }
-                p2 = new Position();
-                p2.X = p.X - 1;
-                p2.Y = p.Y + 1;
-                found = false;
-                while (!found && !p2.Failed())
-                {
-                    if (!Object.Equals(x.getBoardPiece(p2.X, p2.Y),null))
-                    {
-                        found = true;
-                    }
-                    tempList.Add(p2);
-                    p2.X = p2.X - 1;
-                    p2.Y = p2.Y + 1;
-                }
+                
+                AddToListInDirection(tempList, p, 1, 1, x);
+                AddToListInDirection(tempList, p, 1, -1, x);
+                AddToListInDirection(tempList, p, -1, 1, x);
+                AddToListInDirection(tempList, p, -1, -1, x);
+              
 
 
                 // The following is common in Most Pieces
@@ -107,5 +57,6 @@ namespace Assets.Scripts
 
             };
         }
+
     }
 }

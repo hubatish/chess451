@@ -131,6 +131,10 @@ namespace Assets.Scripts.Chess451
             return false;
         }
 
+        public Piece getBoardPiece(Position p)
+        {
+            return _board[p.X - 1, p.Y - 1];
+        }
         public Piece getBoardPiece(int x, int y)
         { return _board[x, y]; }
 
@@ -314,8 +318,12 @@ namespace Assets.Scripts.Chess451
                     }
                     return false;
                 }*/
-				_board[x2,y2].position.X = x2 +1;
-				_board[x2,y2].position.Y = y2+1;
+
+                Position p = new Position();
+                p.X = x2 + 1;
+                p.Y = y2 + 1;
+                _board[x2, y2].position = p;
+				
 
             }
             return isValid;

@@ -14,8 +14,9 @@ namespace Assets.Scripts
         override public Position position
         {
             get { return pos; }
-            protected set
+             set
             {
+                UnityEngine.Debug.Log("beep");
                 if (!hasMoved) { hasMoved = true; }
                 if (Math.Abs(value.Y - pos.Y) > 1)
                 {
@@ -57,6 +58,7 @@ namespace Assets.Scripts
 
                 //p2 = new Position();
 
+                UnityEngine.Debug.Log(hasMoved);
                 if (!hasMoved)
                 {
                     p2.X = p.X;
@@ -87,11 +89,11 @@ namespace Assets.Scripts
                         Pawn tempPawn = (Pawn)tempPiece;
                         if (tempPawn.inStep)
                         {
-							// LARGE CHUNJES OF CODE MISSING HERE;
+                            tempList.Add(p2);
                         }
                     }
                 }
-
+                p2 = new Position();
                 // Diagnal right
 
                 p2.X = p.X + 1;
@@ -99,7 +101,7 @@ namespace Assets.Scripts
                 if (!p2.Failed() && !Object.Equals(x.getBoardPiece(p2.X - 1, p2.Y - 1), null))
                     tempList.Add(p2);
                 p2 = new Position();
-                // En Pessant left. Does not handle capture yet
+                // En Pessant right. Does not handle capture yet
                 p2.X = p.X + 1;
                 p2.Y = p.Y + direction;
                 if (!p2.Failed() && !Object.Equals(x.getBoardPiece(p2.X - 1, p2.Y - direction - 1), null) && x.getBoardPiece(p2.X - 1, p2.Y - direction - 1).color != color)
@@ -111,6 +113,7 @@ namespace Assets.Scripts
                         if (tempPawn.inStep)
                         {
                             // LARGE CHUNJES OF CODE MISSING HERE;
+                            tempList.Add(p2);
                         }
                     }
                 }
