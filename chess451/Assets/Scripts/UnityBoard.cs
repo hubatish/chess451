@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MovePieceWhite : MonoBehaviour
+public class UnityBoard : MonoBehaviour
 {
     public GameObject sPiece; //Selected piece
     UnityPiece pieceScript; //the position of the piece

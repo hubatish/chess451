@@ -8,8 +8,8 @@ public class WhiteBlackPlayerManager : MonoBehaviour
 {
     public static bool iAmWhite = true;
     public bool useLocal = false;
-    public MovePieceWhite whitePieces;
-    public MovePieceWhite blackPieces;
+    public UnityBoard whitePieces;
+    public UnityBoard blackPieces;
 
     protected void Start()
     {

@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class NetworkPlayer : Singleton<NetworkPlayer>
 {
-    public MovePieceWhite pieceMover;
-    public MovePieceWhite otherPieceMover;
+    public UnityBoard pieceMover;
+    public UnityBoard otherPieceMover;
 
     protected PhotonView photonView;
     protected void Awake()
