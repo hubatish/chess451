@@ -11,6 +11,7 @@ public class TestRunner : MonoBehaviour {
 
         // Add Tests here
         tests.Add(new PositionTest());
+        tests.Add(new Assets.TestScripts.CheckTest());
     }
 	// Use this for initialization
 	void Start () {
