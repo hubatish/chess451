@@ -77,3 +77,7 @@ bin.meta
 .Trashes
 
 chess451/Assembly-CSharp-Editor.csproj
+chess451/Assets/UnityVS.meta
+*.meta
+*.dll
+chess451/Assets/UnityTestTools/Common/Settings/UnitTestsRunnerSettings.asset
