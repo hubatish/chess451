@@ -175,6 +175,38 @@ namespace Assets.Scripts.Chess451
             return retVal;
         }
 
+        public bool FastCheck(PIECE_COLOR c)
+        {
+            bool retVal = false;
+            foreach (Piece p in _board)
+            {
+                if (!Object.Equals(p, null))
+                {
+                    ThreatMap t = p.getMoves().Invoke(this);
+                    for (int i = 0; i < 8; i++)
+                    {
+                        for (int j = 0; j < 8; j++)
+                        {
+                            if (_board[i, j] is King && t.GetSpot(i, j) && _board[i, j].color == c)
+                            {
+
+                                retVal = true;
+                                goto End;                                
+                                
+                            }
+
+                        }
+                    }
+                    //tList1.Add(t);
+                }
+
+
+            }
+            End:
+            return retVal;
+            
+        }
+
         public bool Check(PIECE_COLOR c, out bool mate)
         {
             King myKing = new King(c, new Position());
@@ -354,9 +386,9 @@ namespace Assets.Scripts.Chess451
 
 
                 _board[x1, y1] = null;
-                bool unused;
+                
 
-               /* if(Check(_board[x2, y2].color,  out unused)) // Rollback illegal moves (mostly pins)
+                if(FastCheck(_board[x2, y2].color)) // Rollback illegal moves (mostly pins)
                 {
                     _board[x1, y1] = _board[x2, y2];
                     _board[x2, y2] = tempPiece;
@@ -366,7 +398,7 @@ namespace Assets.Scripts.Chess451
                         _board[x2, y1] = tempPassant;
                     }
                     return false;
-                }*/
+                }
 
                 Position p = new Position();
                 p.X = x2 + 1;
