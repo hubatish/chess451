@@ -43,7 +43,7 @@ public abstract class Piece
 	virtual public Position position
     {
         get { return pos; }
-        protected set
+        set
         {
             UnityEngine.Debug.Log("beep");
             if (!hasMoved) { hasMoved = true; }
