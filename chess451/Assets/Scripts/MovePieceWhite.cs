@@ -58,7 +58,7 @@ public class MovePieceWhite : MonoBehaviour {
 				newPosition.z = hit.transform.position.z;
                 bool enPassant = false;
                 //the checks give null references right now
-                //if(boardRef.b.moveBoardPiece(oldPos,newPos, out enPassant))
+                if(boardRef.b.moveBoardPiece(oldPos,newPos, out enPassant))
                 {
 				    NetworkPlayer.Instance.MovePiece(oldPos,newPos);
 
