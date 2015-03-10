@@ -115,7 +115,7 @@ public class MovePieceWhite : MonoBehaviour
         {
             Transform newPiece = pieceOnDestSquare.transform;
 
-            if ((piece.collider.gameObject.tag == "WhitePiece" & newPiece.gameObject.tag == "BlackPiece") | piece.collider.gameObject.tag == "BlackPiece" & piece.gameObject.tag == "WhitePiece")
+            if ((piece.collider.gameObject.tag == "WhitePiece" & newPiece.gameObject.tag == "BlackPiece") | piece.collider.gameObject.tag == "BlackPiece" & newPiece.gameObject.tag == "WhitePiece")
             {
                 Destroy(newPiece.gameObject);
             }
