@@ -90,10 +90,12 @@ public class MovePieceWhite : MonoBehaviour
 
     public void TryMovePiece(Position oldPos, Position newPos)
     {
+        Debug.Log("Try Move got called with " + oldPos.ToGridString() + " to " + newPos.ToGridString() + " board ref is " + boardRef.ToString());
         bool enPassant = false;
         //Debug.Log("officially moving from  " + oldPos.ToGridString() + " to " + newPos.ToGridString());
-        if (boardRef.b.moveBoardPiece(oldPos, newPos, out enPassant))
+        //if (boardRef.b.moveBoardPiece(oldPos, newPos, out enPassant))
         {
+            Debug.Log("Validation passed");
             OfficiallyMovePiece(oldPos, newPos);
             if (enPassant)
             {
@@ -106,6 +108,7 @@ public class MovePieceWhite : MonoBehaviour
     //Update the 3d board with the piece movement
     public void OfficiallyMovePiece(Position oldPos, Position newPos)
     {
+        Debug.Log("officially moving some pieces from " + oldPos.ToGridString() + " to " + newPos.ToGridString());
         Transform piece = UnityBoardSquare.GetUnityBoardSquare(oldPos).GetPieceOnSquare().transform;
         Transform newSquare = UnityBoardSquare.GetUnityBoardSquare(newPos).transform;
 
@@ -124,13 +127,6 @@ public class MovePieceWhite : MonoBehaviour
         //don't change y value (ZH grab from XS 3-9, midnight)
         piece.transform.position = new Vector3(newSquare.position.x, piece.transform.position.y, newSquare.position.z);
         piece.GetComponent<UnityPiece>().SyncCurrentPosition();
-        if (Turn.white_turn == true)
-        {
-            Turn.white_turn = false;
-        }
-        else
-        {
-            Turn.white_turn = true;
-        }
+        Turn.white_turn = !Turn.white_turn;
     }
 }

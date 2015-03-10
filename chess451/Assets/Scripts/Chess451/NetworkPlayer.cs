@@ -7,11 +7,29 @@ using UnityEngine;
 public class NetworkPlayer : Singleton<NetworkPlayer>
 {
     public MovePieceWhite pieceMover;
+    public MovePieceWhite otherPieceMover;
 
     protected PhotonView photonView;
     protected void Awake()
     {
         photonView = gameObject.GetComponent<PhotonView>();
+    }
+
+    protected void Start()
+    {
+        Invoke("LateStart", 0.01f);
+    }
+
+    protected void LateStart()
+    {
+        if(pieceMover.enabled)
+        {
+            return;
+        }
+        if(otherPieceMover.enabled)
+        {
+            pieceMover = otherPieceMover;
+        }
     }
 
     public void MovePiece(Position oldPos, Position newPos)
@@ -31,12 +49,14 @@ public class NetworkPlayer : Singleton<NetworkPlayer>
     [RPC]
     public void OnReceiveMoveRPC(string moveString)
     {
-        //Debug.Log("RPC: 'OnReceiveMoveRPC' Parameter: " + moveString);
+        Debug.Log("RPC: 'OnReceiveMoveRPC' Parameter:PP " + moveString);
         MoveMessages message = new MoveMessages(moveString);
+        Debug.Log("line 36");
         Vector3 start = message.startPos;
+        Debug.Log("line 38");
         Vector3 end = message.endPos;
         //Debug.Log("OnReceiveMoveRPC has start and end: " + start.ToString() + " , " + end.ToString());
-
+        Debug.Log("line 41");
         pieceMover.TryMovePiece(new Position(start), new Position(end));
     }
 }
