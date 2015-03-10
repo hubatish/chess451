@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MovePieceWhite : MonoBehaviour {
-	public GameObject sPiece; //Selected piece
-	UnityPiece pieceScript; //the position of the piece
+public class MovePieceWhite : MonoBehaviour
+{
+    public GameObject sPiece; //Selected piece
+    UnityPiece pieceScript; //the position of the piece
     BoardRef boardRef;
-    Turn trn;
 
     public bool isWhite = true;
     private string GetColliderTag()
     {
-        if(isWhite)
+        if (isWhite)
         {
             return "WhitePiece";
         }
@@ -20,36 +20,38 @@ public class MovePieceWhite : MonoBehaviour {
         }
     }
 
-	// Use this for initialization
-	protected virtual void Start () {
+    // Use this for initialization
+    protected virtual void Start()
+    {
         boardRef = GameObject.FindGameObjectWithTag("BoardBase").GetComponent<BoardRef>();
-	}
+    }
 
-	// Update is called once per frame
-	void Update () {
-		
-		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition); //Raycasting
-		RaycastHit hit;
-		
-		
-		if (Input.GetKeyDown (KeyCode.Mouse0)) 
-		{
-			//Select piece. We can only select a piece that has the tag "WhitePiece"
-			if(sPiece == null) 
-			{
-				if( (Physics.Raycast (ray, out hit, 100)) & hit.collider.gameObject.tag == GetColliderTag())
-				{
-					Debug.Log ("sweg");
-					sPiece = hit.transform.gameObject; //sPiece = selected object
-					pieceScript = (UnityPiece) sPiece.GetComponent(typeof(UnityPiece));
-				}
-			}
-			//if piece is already selected then we move it to whatever object we click
-			else if (Physics.Raycast (ray, out hit, 100)) 
-			{
-				Debug.Log(sPiece.transform.gameObject.name);
+    // Update is called once per frame
+    void Update()
+    {
 
-				//QueensideCastle. Add the canQueensideCastle from move validation
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); //Raycasting
+        RaycastHit hit;
+
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            //Select piece. We can only select a piece that has the tag "WhitePiece"
+            if (sPiece == null)
+            {
+                if ((Physics.Raycast(ray, out hit, 100)) & hit.collider.gameObject.tag == GetColliderTag())
+                {
+                    Debug.Log("sweg");
+                    sPiece = hit.transform.gameObject; //sPiece = selected object
+                    pieceScript = (UnityPiece)sPiece.GetComponent(typeof(UnityPiece));
+                }
+            }
+            //if piece is already selected then we move it to whatever object we click
+            else if (Physics.Raycast(ray, out hit, 100) & isWhite == Turn.white_turn)
+            {
+                Debug.Log(sPiece.transform.gameObject.name);
+
+                //QueensideCastle. Add the canQueensideCastle from move validation
 
 
                 /// ZH 3-8, midnight
@@ -57,34 +59,34 @@ public class MovePieceWhite : MonoBehaviour {
                 Position newPos = new Position(hit.transform.parent.name);
                 Position oldPos = new Position(pieceScript.currentPos.name);
 
-				Position WRook1NewPos = new Position(GameObject.Find("D1").name);
-				Position WRook1OldPos = new Position(GameObject.Find("ChessPieceKnightWhite").name);
+                Position WRook1NewPos = new Position(GameObject.Find("D1").name);
+                Position WRook1OldPos = new Position(GameObject.Find("ChessPieceKnightWhite").name);
 
-				if(sPiece.transform.gameObject.name == "ChessPieceKingWhite") // & hit.transform.gameObject.name == "ChessPieceRookWhite1") //& canQueensideCastle)
-				{
-					GameObject kingDestination = GameObject.Find("C1");
+                if (sPiece.transform.gameObject.name == "ChessPieceKingWhite") // & hit.transform.gameObject.name == "ChessPieceRookWhite1") //& canQueensideCastle)
+                {
+                    GameObject kingDestination = GameObject.Find("C1");
 
-					NetworkPlayer.Instance.MovePiece(WRook1OldPos,WRook1NewPos);
-					newPos = new Position(kingDestination.name);
+                    NetworkPlayer.Instance.MovePiece(WRook1OldPos, WRook1NewPos);
+                    newPos = new Position(kingDestination.name);
 
-				}
-	
-				//XS 8:24 PM 
-				//Capture piece of the opposite color if they collide.
-				/*if((sPiece.collider.gameObject.tag == "WhitePiece" & hit.collider.gameObject.tag == "BlackPiece") | sPiece.collider.gameObject.tag == "BlackPiece" & hit.collider.gameObject.tag == "WhitePiece" )
-				{
-					Destroy(hit.collider.gameObject);
-				}*/
+                }
 
-                //the checks give null references right now
-
-				sPiece = null; //deselect piece after moving
+                //XS 8:24 PM 
+                //Capture piece of the opposite color if they collide.
+                /*if((sPiece.collider.gameObject.tag == "WhitePiece" & hit.collider.gameObject.tag == "BlackPiece") | sPiece.collider.gameObject.tag == "BlackPiece" & hit.collider.gameObject.tag == "WhitePiece" )
+                {
+                    Destroy(hit.collider.gameObject);
+                }*/
 
                 //the checks give null references right now
-			    NetworkPlayer.Instance.MovePiece(oldPos,newPos);
-			}
-		}
-	}
+
+                sPiece = null; //deselect piece after moving
+
+                //the checks give null references right now
+                NetworkPlayer.Instance.MovePiece(oldPos, newPos);
+            }
+        }
+    } //update end
 
     public void TryMovePiece(Position oldPos, Position newPos)
     {
@@ -107,9 +109,9 @@ public class MovePieceWhite : MonoBehaviour {
         Transform piece = UnityBoardSquare.GetUnityBoardSquare(oldPos).GetPieceOnSquare().transform;
         Transform newSquare = UnityBoardSquare.GetUnityBoardSquare(newPos).transform;
 
-		GameObject pieceOnDestSquare = UnityBoardSquare.GetUnityBoardSquare (newPos).GetPieceOnSquare ();
+        GameObject pieceOnDestSquare = UnityBoardSquare.GetUnityBoardSquare(newPos).GetPieceOnSquare();
 
-        if(pieceOnDestSquare!=null)
+        if (pieceOnDestSquare != null)
         {
             Transform newPiece = pieceOnDestSquare.transform;
 
@@ -120,8 +122,15 @@ public class MovePieceWhite : MonoBehaviour {
         }
 
         //don't change y value (ZH grab from XS 3-9, midnight)
-        piece.transform.position = new Vector3(newSquare.position.x,piece.transform.position.y,newSquare.position.z);
+        piece.transform.position = new Vector3(newSquare.position.x, piece.transform.position.y, newSquare.position.z);
         piece.GetComponent<UnityPiece>().SyncCurrentPosition();
-        trn.white_turn = false;
-    } 
+        if (Turn.white_turn == true)
+        {
+            Turn.white_turn = false;
+        }
+        else
+        {
+            Turn.white_turn = true;
+        }
+    }
 }
