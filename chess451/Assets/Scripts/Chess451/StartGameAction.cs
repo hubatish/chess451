@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
 
 //While waiting for two player game to start
 public class StartGameAction : MenuAction
 {
     public GameObject toShow;
     public GameObject toHide;
-    public GameObject loadingScreen;
+    protected GameObject loadingScreen;
+
+    public InputField input;
 
     private PhotonConnector connector;
     protected void Start()
@@ -25,7 +28,14 @@ public class StartGameAction : MenuAction
         loadingScreen.SetActive(true);
         connector.AddTwoPlayerConnectedAction(OnTwoPlayers);
         connector.AddJoinedRoomAction(OnRoomEnter);
-        connector.JoinRoom();
+
+        //get room name from input field
+        string joinName = "defaultRoom";
+        if(input.text!="")
+        {
+            joinName = input.text.ToLower();
+        }
+        connector.JoinRoom(joinName);
     }
 
     public void OnRoomEnter()

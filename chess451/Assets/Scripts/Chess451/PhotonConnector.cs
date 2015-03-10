@@ -51,7 +51,12 @@ public class PhotonConnector : Singleton<PhotonConnector>
     //Connect to room using Photon Network
     public void JoinRoom()
     {
-        PhotonNetwork.JoinOrCreateRoom(roomName, new RoomOptions(), new TypedLobby());
+        JoinRoom(roomName);
+    }
+
+    public void JoinRoom(string room)
+    {
+        PhotonNetwork.JoinOrCreateRoom(room, new RoomOptions(), new TypedLobby());
     }
 
     //callback

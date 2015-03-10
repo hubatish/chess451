@@ -11,10 +11,10 @@ namespace Assets.Scripts
         bool inStep = false;
          public Pawn(PIECE_COLOR c, Position p) : base(c, p) { }
 
-        protected Position position
+        override public Position position
         {
             get { return pos; }
-            set
+            protected set
             {
                 if (!hasMoved) { hasMoved = true; }
                 if (Math.Abs(value.Y - pos.Y) > 1)

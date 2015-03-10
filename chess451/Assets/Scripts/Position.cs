@@ -36,7 +36,7 @@ using UnityEngine;
             YMAX = CHESSDEFAULT;
             x = 1;
             y = 1;
-        }
+        }//comment for commit
 
         public Position(string gridString)
         {

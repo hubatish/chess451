@@ -40,6 +40,7 @@ public class MovePieceWhite : MonoBehaviour {
 			{
 				if( (Physics.Raycast (ray, out hit, 100)) & hit.collider.gameObject.tag == GetColliderTag())
 				{
+					Debug.Log ("sweg");
 					sPiece = hit.transform.gameObject; //sPiece = selected object
 					pieceScript = (UnityPiece) sPiece.GetComponent(typeof(UnityPiece));
 				}
@@ -47,20 +48,48 @@ public class MovePieceWhite : MonoBehaviour {
 			//if piece is already selected then we move it to whatever object we click
 			else if (Physics.Raycast (ray, out hit, 100)) 
 			{
-				newPosition.x = hit.transform.position.x;
+				Debug.Log(sPiece.transform.gameObject.name);
+				//newPosition.x = hit.transform.position.x;
+				newPosition.y = sPiece.transform.position.y; //keep height of pieces constant
+				//newPosition.z = hit.transform.position.z;
+
+				//QueensideCastle. Add the canQueensideCastle from move validation
+
 
                 /// ZH 3-8, midnight
                 /// Moved string parsing and convertRow functionality to Position.cs
                 Position newPos = new Position(hit.transform.parent.name);
                 Position oldPos = new Position(pieceScript.currentPos.name);
 
-				newPosition.y = sPiece.transform.position.y; //keep height of pieces constant
-				newPosition.z = hit.transform.position.z;
+				Position WRook1NewPos = new Position(GameObject.Find("D1").name);
+				Position WRook1OldPos = new Position(GameObject.Find("ChessPieceKnightWhite").name);
+
+				if(sPiece.transform.gameObject.name == "ChessPieceKingWhite") // & hit.transform.gameObject.name == "ChessPieceRookWhite1") //& canQueensideCastle)
+				{
+					GameObject kingDestination = GameObject.Find("C1");
+
+					NetworkPlayer.Instance.MovePiece(WRook1OldPos,WRook1NewPos);
+					newPos = new Position(kingDestination.name);
+
+				}
+
                 bool enPassant = false;
+	
+				//XS 8:24 PM 
+				//Capture piece of the opposite color if they collide.
+				if((sPiece.collider.gameObject.tag == "WhitePiece" & hit.collider.gameObject.tag == "BlackPiece") | sPiece.collider.gameObject.tag == "BlackPiece" & hit.collider.gameObject.tag == "WhitePiece" )
+				{
+					Destroy(hit.collider.gameObject);
+				}
+
                 //the checks give null references right now
-                //if(boardRef.b.moveBoardPiece(oldPos,newPos, out enPassant))
+
+               // if(boardRef.b.moveBoardPiece(oldPos,newPos, out enPassant))
+
+               // if(boardRef.b.moveBoardPiece(oldPos,newPos, out enPassant))
+
                 {
-				    NetworkPlayer.Instance.MovePiece(oldPos,newPos);
+				   NetworkPlayer.Instance.MovePiece(oldPos,newPos);
 
 				    sPiece = null; //deselect piece after moving
 
@@ -68,7 +97,7 @@ public class MovePieceWhite : MonoBehaviour {
                     {
                         // TODO: Code to remove en Pessanted piece
                     }
-                }
+                } 
 			}
 		}
 	}
@@ -82,5 +111,5 @@ public class MovePieceWhite : MonoBehaviour {
         Transform newSquare = UnityBoardSquare.GetUnityBoardSquare(newPos).transform;
         piece.transform.position = newSquare.position;
         piece.GetComponent<UnityPiece>().SyncCurrentPosition();
-    }
+    } 
 }
