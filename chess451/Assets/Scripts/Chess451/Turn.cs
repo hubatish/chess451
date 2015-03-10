@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
-
 public class Turn : MonoBehaviour {
 
     public Camera wcam;

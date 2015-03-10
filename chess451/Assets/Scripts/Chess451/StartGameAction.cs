@@ -47,6 +47,7 @@ public class StartGameAction : MenuAction
     public void OnTwoPlayers()
     {
         LevelLoader.LoadNextLevel();
+        WhiteBlackPlayerManager.iAmWhite = PhotonNetwork.isMasterClient;
     }
 }
 
