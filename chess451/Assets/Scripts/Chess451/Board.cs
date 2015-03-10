@@ -207,7 +207,7 @@ namespace Assets.Scripts.Chess451
 
                             retVal = true;
                             checkingPieces.Add(p);
-                            d.Remove(p);
+                            //d.Remove(p);
                             myKing = (King)_board[i, j];    
                         }
                         
@@ -215,8 +215,12 @@ namespace Assets.Scripts.Chess451
                 }
             }
 
+            foreach (Piece p in checkingPieces)
+            {
+                d.Remove(p);
+            }
             // Checkmate code begins here. It's complicated
-            if (checkingPieces.Count != 0)
+            if (retVal)
             {
                
                 Dictionary<Piece,ThreatMap> checkTs = new Dictionary<Piece,ThreatMap>();
@@ -240,7 +244,7 @@ namespace Assets.Scripts.Chess451
                                     if (p.color == c && d[p].GetSpot(j, k) && (j + 1) == p2.position.X && (k + 1) == p2.position.Y)
                                     {
                                         checkingPieces.Remove(p);
-                                        checkTs.Remove(p);
+                                        //checkTs.Remove(p);
                                         // goto Bottom;
                                     }
                                 }
@@ -261,14 +265,20 @@ namespace Assets.Scripts.Chess451
                     blockers.Add(myKing);
                     
                     Board tempBoard = new Board(blockers);
+                    List<Piece> buffer = new List<Piece>();
                     foreach (Piece p in checkingPieces)
                     {
                         ThreatMap t = p.getMoves().Invoke(tempBoard);
                         if (!t.GetSpot(myKing.position.X - 1, myKing.position.Y - 1))
                         {
-                            checkingPieces.Remove(p);
+                            buffer.Add(p);
                             checkTs.Remove(p);
                         }
+                    }
+
+                    foreach (Piece p in buffer)
+                    {
+                        checkingPieces.Remove(p);
                     }
 
 
@@ -299,8 +309,11 @@ namespace Assets.Scripts.Chess451
 
                     for (int i = 0; i < 8; i++)
                             for (int j = 0; j < 8; j++)
-                                if(kingThreat.GetSpot(i,j))
+                                if (kingThreat.GetSpot(i, j))
+                                {
+                                    UnityEngine.Debug.Log("Last Chance Saloon at " + i + " " + j);
                                     mate = false; // if the king has even one legal move, this is not checkmate
+                                }
                 }
 
             }
