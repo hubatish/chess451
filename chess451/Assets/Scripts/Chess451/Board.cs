@@ -69,6 +69,17 @@ namespace Assets.Scripts.Chess451
                 _board[i, 6] = new Pawn(PIECE_COLOR.BLACK, p);
             }
         }
+        public Board(List<Piece> pieces)
+        {
+            _board = new Piece[8, 8];
+
+            foreach (Piece p in pieces)
+            {
+                int x = p.position.X - 1;
+                int y = p.position.Y - 1;
+                _board[x, y] = p;
+            }
+        }
 
 
         public bool isValidMove(int x1, int y1, int x2, int y2)
@@ -213,10 +224,10 @@ namespace Assets.Scripts.Chess451
                 {
                     checkTs.Add( p,p.getMoves().Invoke(this));    
                 }
-               
-                // Step 1: Can one of my pieces block it
-                foreach (Piece p2 in checkTs.Keys)
-                {
+                List<Piece> blockers = new List<Piece>();
+                // Step 1: Can one of my pieces Take it out
+               //  In addition, leave "block" markers for any area they can move to
+               // {
 
                     
                     foreach (Piece p in d.Keys)
@@ -224,17 +235,41 @@ namespace Assets.Scripts.Chess451
                         for (int j = 0; j < 8; j++)
                             for (int k = 0; k < 8; k++)
                             {
-                                if (p.color == c && d[p].GetSpot(j, k) && (checkTs[p2].GetSpot(j, k) || ((j+1) == p2.position.X && (k + 1) == p2.position.Y )) )
+                                foreach (Piece p2 in checkTs.Keys)
                                 {
-                                    checkingPieces.Remove(p);
-                                    goto Bottom;
+                                    if (p.color == c && d[p].GetSpot(j, k) && (j + 1) == p2.position.X && (k + 1) == p2.position.Y)
+                                    {
+                                        checkingPieces.Remove(p);
+                                        checkTs.Remove(p);
+                                        // goto Bottom;
+                                    }
+                                }
+                                if(d[p].GetSpot(j,k) && p.color == c)
+                                {
+                                Position p3 = new Position();
+                                p3.X = j + 1;
+                                p3.Y = k + 1;
+                                blockers.Add(new Pawn(c, p3));
                                 }
                             }
                     }
-                Bottom:
-                    continue; 
+                //Bottom:
+                  //  continue; 
 
-                }
+                //}
+
+                    blockers.Add(myKing);
+                    
+                    Board tempBoard = new Board(blockers);
+                    foreach (Piece p in checkingPieces)
+                    {
+                        ThreatMap t = p.getMoves().Invoke(tempBoard);
+                        if (!t.GetSpot(myKing.position.X - 1, myKing.position.Y - 1))
+                        {
+                            checkingPieces.Remove(p);
+                            checkTs.Remove(p);
+                        }
+                    }
 
 
                 if (checkingPieces.Count != 0) // if we STILL have things checking the king
