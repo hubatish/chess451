@@ -6,6 +6,7 @@ public class MovePieceWhite : MonoBehaviour {
 	private Vector3 newPosition; //Where we move the piece
 	UnityPiece pieceScript; //the position of the piece
     BoardRef boardRef;
+    Turn trn;
 
     public bool isWhite = true;
     private string GetColliderTag()
@@ -125,5 +126,6 @@ public class MovePieceWhite : MonoBehaviour {
 
         piece.transform.position = newSquare.position;
         piece.GetComponent<UnityPiece>().SyncCurrentPosition();
+        trn.white_turn = false;
     } 
 }
