@@ -5,6 +5,7 @@ public class MovePieceWhite : MonoBehaviour {
 	public GameObject sPiece; //Selected piece
 	UnityPiece pieceScript; //the position of the piece
     BoardRef boardRef;
+    Turn trn;
 
     public bool isWhite = true;
     private string GetColliderTag()
@@ -121,5 +122,6 @@ public class MovePieceWhite : MonoBehaviour {
         //don't change y value (ZH grab from XS 3-9, midnight)
         piece.transform.position = new Vector3(newSquare.position.x,piece.transform.position.y,newSquare.position.z);
         piece.GetComponent<UnityPiece>().SyncCurrentPosition();
+        trn.white_turn = false;
     } 
 }

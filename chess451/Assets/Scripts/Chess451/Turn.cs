@@ -7,7 +7,7 @@ public class Turn : MonoBehaviour {
 
     public Camera wcam;
     public Camera bcam;
-    private bool white_turn = true;
+    public bool white_turn = true;
 
 	// Use this for initialization
 	void Start () 
