@@ -101,7 +101,8 @@ namespace Assets.Scripts.Chess451
                         if (!Object.Equals(_board[i, 0], null)) // check that the spaces in between are empty
                             return false;
                     }
-                        return true;
+                    //_board[7,0] 
+                    return true;
                 }
             if (c == PIECE_COLOR.BLACK && !Object.Equals(_board[3, 7], null) && !_board[3, 7].hasMoved) // check the king
                 if (!Object.Equals(_board[0, 7], null) && !_board[0, 7].hasMoved) // chech the rook
@@ -111,11 +112,11 @@ namespace Assets.Scripts.Chess451
                         if (!Object.Equals(_board[i, 7], null)) // check that the spaces in between are empty
                             return false;
                     }
+
                     return true;
                 }
             return false;
         }
-
 
         public bool canQueenSideCastle(PIECE_COLOR c)
         {
@@ -139,6 +140,90 @@ namespace Assets.Scripts.Chess451
                     }
                     return true;
                 }
+            return false;
+        }
+
+        public bool isCastleMoveValid(int x1, int y1, int x2, int y2)//(Position p1, Position p2)
+        {
+           /* int x1 = p1.X - 1;
+            int y1 = p1.Y - 1;
+            int x2 = p2.X - 1;
+            int y2 = p2.Y - 1;*/
+
+            if (Object.Equals(_board[x1, y1], null) || Object.Equals(_board[x2, y2], null))
+            {
+                //either square empty
+                return false;
+            }
+
+            PIECE_COLOR color = _board[x1, y1].color;
+            if(color == PIECE_COLOR.WHITE)
+            {
+                if(y1!=0 || y2!=0)
+                {
+                    //y wrong
+                    return false;
+                }
+                //king is at 4
+                int otherX = -1;
+                if(x1 == 4)
+                {
+                    otherX = x2;
+                }
+                else if(x2==4)
+                {
+                    otherX = x1;
+                }
+                if(otherX==-1)
+                {
+                    //neither is king
+                    return false;
+                }
+                //check if other position is correct
+                if(otherX==0)
+                {
+                    return canQueenSideCastle(color);
+                }
+                else if(otherX==7)
+                {
+                    return canKingSideCastle(color);
+                }
+                return false;
+            }
+            else if (color == PIECE_COLOR.BLACK)
+            {
+                if (y1 != 7 || y2 != 7)
+                {
+                    //y wrong
+                    return false;
+                }
+                //king is at 3
+                int otherX = -1;
+                if (x1 == 3)
+                {
+                    otherX = x2;
+                }
+                else if (x2 == 3)
+                {
+                    otherX = x1;
+                }
+                if (otherX == -1)
+                {
+                    //neither is king
+                    return false;
+                }
+                //check if other position is correct
+                if (otherX == 0)
+                {
+                    return canQueenSideCastle(color);
+                }
+                else if (otherX == 7)
+                {
+                    return canKingSideCastle(color);
+                }
+                return false;
+            }
+
             return false;
         }
 
@@ -351,13 +436,11 @@ namespace Assets.Scripts.Chess451
 
             }
 
-
-
-
-
             return retVal;
         }
 
+        //ZH Try to move whatever piece is at p1 to p2
+        //Return if that's a valid move
         public bool moveBoardPiece(Position p1, Position p2, out bool passant)
         {
             return moveBoardPiece(p1.X-1, p1.Y-1, p2.X-1, p2.Y-1, out passant);
@@ -365,10 +448,18 @@ namespace Assets.Scripts.Chess451
 
         public bool moveBoardPiece(int x1, int y1, int x2, int y2, out bool passant)
         {
-            bool isValid = isValidMove(x1, y1, x2, y2);
-             passant = false;
-             //UnityEngine.Debug.Log(isValid);
-             Piece tempPassant = new Pawn(PIECE_COLOR.WHITE, new Position());
+            bool isValid;
+            if(isCastleMoveValid(x1,y1,x2,y2))
+            {
+                isValid = true;
+            }
+            else
+            {
+                isValid = isValidMove(x1, y1, x2, y2);
+            }
+            passant = false;
+            
+            Piece tempPassant = new Pawn(PIECE_COLOR.WHITE, new Position());
             if (isValid)
             {
                 
@@ -379,12 +470,9 @@ namespace Assets.Scripts.Chess451
                     _board[x2, y1] = null;
                     passant = true;
                 }
+
                 Piece tempPiece = _board[x2, y2];
-                
                 _board[x2, y2] = _board[x1, y1];
-
-
-
                 _board[x1, y1] = null;
                 
 

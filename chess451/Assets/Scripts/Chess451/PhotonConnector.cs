@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PhotonConnector : Singleton<PhotonConnector>
 {
-    public static string roomName = "GreatChess.1";
+    public static string defaultRoomName = "GreatChess.1";
     public bool autoConnectToRoom = false;
 
     //customizable callbacks for all these events
@@ -29,6 +29,8 @@ public class PhotonConnector : Singleton<PhotonConnector>
 
     protected void Start()
     {
+        defaultRoomName += (Time.deltaTime + UnityEngine.Random.Range(0f,100f)).ToString();
+        
         if(!PhotonNetwork.connected)
         {
             PhotonNetwork.ConnectUsingSettings("0.1");
@@ -51,7 +53,7 @@ public class PhotonConnector : Singleton<PhotonConnector>
     //Connect to room using Photon Network
     public void JoinRoom()
     {
-        JoinRoom(roomName);
+        JoinRoom(defaultRoomName);
     }
 
     public void JoinRoom(string room)
