@@ -16,7 +16,7 @@ namespace Assets.Scripts
             get { return pos; }
              set
             {
-                UnityEngine.Debug.Log("beep");
+                //UnityEngine.Debug.Log("beep");
                 if (!hasMoved) { hasMoved = true; }
                 if (Math.Abs(value.Y - pos.Y) > 1)
                 {
@@ -128,7 +128,7 @@ namespace Assets.Scripts
                         Piece tempPiece = x.getBoardPiece(temp.X - 1, temp.Y - 1);
                         if ((Object.Equals(tempPiece,null)) || (tempPiece.color != color))
                         {
-                            UnityEngine.Debug.Log("HIT!");
+                            //UnityEngine.Debug.Log("HIT!");
                             UnityEngine.Debug.Log(temp.X + " " + temp.Y);
                             // It's valid
                             t.SetSpot(temp.X - 1, temp.Y - 1, true);

@@ -59,25 +59,6 @@ public class UnityBoard : MonoBehaviour
                 Position newPos = new Position(hit.transform.parent.name);
                 Position oldPos = new Position(pieceScript.currentPos.name);
 
-                Position WRook1NewPos = new Position(GameObject.Find("D1").name);
-                Position WRook1OldPos = new Position(GameObject.Find("ChessPieceKnightWhite").name);
-
-                if (sPiece.transform.gameObject.name == "ChessPieceKingWhite") // & hit.transform.gameObject.name == "ChessPieceRookWhite1") //& canQueensideCastle)
-                {
-                    GameObject kingDestination = GameObject.Find("C1");
-
-                    NetworkPlayer.Instance.MovePiece(WRook1OldPos, WRook1NewPos);
-                    newPos = new Position(kingDestination.name);
-
-                }
-
-                //XS 8:24 PM 
-                //Capture piece of the opposite color if they collide.
-                /*if((sPiece.collider.gameObject.tag == "WhitePiece" & hit.collider.gameObject.tag == "BlackPiece") | sPiece.collider.gameObject.tag == "BlackPiece" & hit.collider.gameObject.tag == "WhitePiece" )
-                {
-                    Destroy(hit.collider.gameObject);
-                }*/
-
                 //the checks give null references right now
 
                 sPiece = null; //deselect piece after moving
@@ -90,12 +71,11 @@ public class UnityBoard : MonoBehaviour
 
     public void TryMovePiece(Position oldPos, Position newPos)
     {
-        Debug.Log("Try Move got called with " + oldPos.ToGridString() + " to " + newPos.ToGridString() + " board ref is " + boardRef.ToString());
+        //Debug.Log("Try Move got called with " + oldPos.ToGridString() + " to " + newPos.ToGridString() + " board ref is " + boardRef.ToString());
         bool enPassant = false;
         //Debug.Log("officially moving from  " + oldPos.ToGridString() + " to " + newPos.ToGridString());
-        //if (boardRef.b.moveBoardPiece(oldPos, newPos, out enPassant))
+        if (boardRef.b.moveBoardPiece(oldPos, newPos, out enPassant))
         {
-            Debug.Log("Validation passed");
             OfficiallyMovePiece(oldPos, newPos);
             if (enPassant)
             {
@@ -120,7 +100,23 @@ public class UnityBoard : MonoBehaviour
 
             if ((piece.collider.gameObject.tag == "WhitePiece" & newPiece.gameObject.tag == "BlackPiece") | piece.collider.gameObject.tag == "BlackPiece" & newPiece.gameObject.tag == "WhitePiece")
             {
+                //Capture a piece
                 Destroy(newPiece.gameObject);
+            }
+            else
+            {
+                //ZH Moved XS Castling code to be shared for networking
+
+                Position WRook1NewPos = new Position(GameObject.Find("D1").name);
+                Position WRook1OldPos = new Position(GameObject.Find("ChessPieceKnightWhite").name);
+
+                if (sPiece.transform.gameObject.name == "ChessPieceKingWhite") // & hit.transform.gameObject.name == "ChessPieceRookWhite1") //& canQueensideCastle)
+                {
+                    GameObject kingDestination = GameObject.Find("C1");
+
+                    NetworkPlayer.Instance.MovePiece(WRook1OldPos, WRook1NewPos);
+                    newPos = new Position(kingDestination.name);
+                }
             }
         }
 

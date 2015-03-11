@@ -45,7 +45,7 @@ public abstract class Piece
         get { return pos; }
         set
         {
-            UnityEngine.Debug.Log("beep");
+            //UnityEngine.Debug.Log("beep");
             if (!hasMoved) { hasMoved = true; }
             pos = value;
         }

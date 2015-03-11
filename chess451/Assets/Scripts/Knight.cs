@@ -71,7 +71,7 @@ namespace Assets.Scripts
                         {
                             // It's valid
                             t.SetSpot(temp.X-1, temp.Y-1, true);
-                            UnityEngine.Debug.Log("HIT!");
+                            //UnityEngine.Debug.Log("HIT!");
                             UnityEngine.Debug.Log(temp.X + " " + temp.Y);
                         }
                     }
