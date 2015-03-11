@@ -28,7 +28,7 @@ public class UnityPiece : MonoBehaviour {
     public GameObject GetCurrentBoardPosition()
     {
         Ray ray = new Ray(gameObject.transform.position, Vector3.up*-1);//gameObject.transform.TransformDirection(Vector3.back));
-
+		
         RaycastHit hit;
 
         if ((Physics.Raycast(ray, out hit, 100)))
@@ -41,8 +41,8 @@ public class UnityPiece : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-
-
-		//Debug.DrawRay (ray, Color.red);
+		Ray ray = new Ray(gameObject.transform.position, Vector3.up*-1);
+		Vector3 pos = new Vector3();
+		Debug.DrawLine(gameObject.transform.position, gameObject.transform.position+Vector3.up*-1,Color.red);
 	}
 }

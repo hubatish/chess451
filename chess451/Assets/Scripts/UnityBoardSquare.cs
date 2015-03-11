@@ -21,19 +21,27 @@ public class UnityBoardSquare : MonoBehaviour
         }
     }
 
+
+	void Update()
+	{
+		Debug.DrawLine (gameObject.transform.position - (Vector3.up*1),gameObject.transform.position - (Vector3.up*1)+ Vector3.up,Color.green);
+	}
+
     public GameObject GetPieceOnSquare()
     {
-        Ray ray = new Ray(gameObject.transform.position-Vector3.up*10, Vector3.up);
+        Ray ray = new Ray(gameObject.transform.position-Vector3.up*1, Vector3.up);
 
         RaycastHit[] hits = Physics.RaycastAll(ray, 100);
         foreach(var hit in hits)
         {
             if (hit.collider.gameObject.tag.Contains("Piece"))
             {
+				Debug.Log ("found piece: " + hit.transform.gameObject.name);
                 return hit.transform.gameObject;
             }        
         }
-        //Debug.Log(gameObject.name + " found no piece");
+
+	
         return null;
     }
 }
