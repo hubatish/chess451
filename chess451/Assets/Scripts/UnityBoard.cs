@@ -41,7 +41,6 @@ public class UnityBoard : MonoBehaviour
             {
                 if ((Physics.Raycast(ray, out hit, 100)) & hit.collider.gameObject.tag == GetColliderTag())
                 {
-                    Debug.Log("sweg");
                     sPiece = hit.transform.gameObject; //sPiece = selected object
                     pieceScript = (UnityPiece)sPiece.GetComponent(typeof(UnityPiece));
                 }
@@ -88,7 +87,7 @@ public class UnityBoard : MonoBehaviour
     //Update the 3d board with the piece movement
     public void OfficiallyMovePiece(Position oldPos, Position newPos)
     {
-        Debug.Log("officially moving some pieces from " + oldPos.ToGridString() + " to " + newPos.ToGridString());
+        //Debug.Log("officially moving some pieces from " + oldPos.ToGridString() + " to " + newPos.ToGridString());
         Transform piece = UnityBoardSquare.GetUnityBoardSquare(oldPos).GetPieceOnSquare().transform;
         Transform newSquare = UnityBoardSquare.GetUnityBoardSquare(newPos).transform;
 

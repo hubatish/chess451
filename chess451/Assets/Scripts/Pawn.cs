@@ -58,7 +58,7 @@ namespace Assets.Scripts
 
                 //p2 = new Position();
 
-                UnityEngine.Debug.Log(hasMoved);
+                //UnityEngine.Debug.Log(hasMoved);
                 if (!hasMoved)
                 {
                     p2.X = p.X;
@@ -129,7 +129,7 @@ namespace Assets.Scripts
                         if ((Object.Equals(tempPiece,null)) || (tempPiece.color != color))
                         {
                             //UnityEngine.Debug.Log("HIT!");
-                            UnityEngine.Debug.Log(temp.X + " " + temp.Y);
+                            //UnityEngine.Debug.Log(temp.X + " " + temp.Y);
                             // It's valid
                             t.SetSpot(temp.X - 1, temp.Y - 1, true);
                         }

@@ -344,7 +344,7 @@ namespace Assets.Scripts.Chess451
                             for (int j = 0; j < 8; j++)
                                 if (kingThreat.GetSpot(i, j))
                                 {
-                                    UnityEngine.Debug.Log("Last Chance Saloon at " + i + " " + j);
+                                    //UnityEngine.Debug.Log("Last Chance Saloon at " + i + " " + j);
                                     mate = false; // if the king has even one legal move, this is not checkmate
                                 }
                 }
@@ -367,7 +367,7 @@ namespace Assets.Scripts.Chess451
         {
             bool isValid = isValidMove(x1, y1, x2, y2);
              passant = false;
-             UnityEngine.Debug.Log(isValid);
+             //UnityEngine.Debug.Log(isValid);
              Piece tempPassant = new Pawn(PIECE_COLOR.WHITE, new Position());
             if (isValid)
             {

@@ -61,7 +61,7 @@ namespace Assets.Scripts
                 // The following is common in Most Pieces
                 foreach (Position temp in tempList)
                 {
-                    UnityEngine.Debug.Log(temp.X + " " + temp.Y);
+                    //UnityEngine.Debug.Log(temp.X + " " + temp.Y);
                     // Is it on the board
                     if (!temp.Failed())
                     {
@@ -72,7 +72,7 @@ namespace Assets.Scripts
                             // It's valid
                             t.SetSpot(temp.X-1, temp.Y-1, true);
                             //UnityEngine.Debug.Log("HIT!");
-                            UnityEngine.Debug.Log(temp.X + " " + temp.Y);
+                            //UnityEngine.Debug.Log(temp.X + " " + temp.Y);
                         }
                     }
                 }

@@ -16,14 +16,18 @@ public class TestRunner : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         bool passed = true;
-	foreach (CTest test in tests)
-      {
-          string message;
-          if (!test.run(out message))
-          {
-              Debug.Log(test.testname + " failed with message " + message);
-              passed = false;
-          }
+	    foreach (CTest test in tests)
+        {
+              string message;
+              if (!test.run(out message))
+              {
+                  Debug.Log(test.testname + " failed with message " + message);
+                  passed = false;
+              }
+              else
+              {
+                  Debug.Log(test.testname + " passed");
+              }
         }
         if (passed)
         {
