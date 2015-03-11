@@ -104,17 +104,18 @@ namespace Assets.Scripts.Chess451
                     //_board[7,0] 
                     return true;
                 }
+
             if (c == PIECE_COLOR.BLACK && !Object.Equals(_board[4, 7], null) && !_board[4, 7].hasMoved) // check the king
-                if (!Object.Equals(_board[0, 7], null) && !_board[0, 7].hasMoved) // chech the rook
+                if (!Object.Equals(_board[7, 7], null) && !_board[7, 7].hasMoved) // chech the rook
                 {
-                    for (int i = 1; i < 3; i++)
+                    for (int i = 5; i < 7; i++)
                     {
                         if (!Object.Equals(_board[i, 7], null)) // check that the spaces in between are empty
                             return false;
                     }
-
                     return true;
                 }
+
             return false;
         }
 
@@ -131,13 +132,14 @@ namespace Assets.Scripts.Chess451
                     return true;
                 }
             if (c == PIECE_COLOR.BLACK && !Object.Equals(_board[4, 7], null) && !_board[4, 7].hasMoved) // check the king
-                if (!Object.Equals(_board[7, 7], null) && !_board[7, 7].hasMoved) // chech the rook
+                if (!Object.Equals(_board[0, 7], null) && !_board[0, 7].hasMoved) // chech the rook
                 {
-                    for (int i = 4; i < 7; i++)
+                    for (int i = 1; i < 4; i++)
                     {
                         if (!Object.Equals(_board[i, 7], null)) // check that the spaces in between are empty
                             return false;
                     }
+
                     return true;
                 }
             return false;
