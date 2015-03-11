@@ -102,14 +102,14 @@ public class UnityBoard : MonoBehaviour
                 //Capture a piece
                 Destroy(newPiece.gameObject);
             }
-            else
+            else 
             {
                 //ZH Moved XS Castling code to be shared for networking
 
                 Position WRook1NewPos = new Position(GameObject.Find("D1").name);
-                Position WRook1OldPos = new Position(GameObject.Find("ChessPieceKnightWhite").name);
+                Position WRook1OldPos = new Position(GameObject.Find("ChessPieceRookWhite").name);
 
-                if (sPiece.transform.gameObject.name == "ChessPieceKingWhite") // & hit.transform.gameObject.name == "ChessPieceRookWhite1") //& canQueensideCastle)
+                if (piece.gameObject.name == "ChessPieceKingWhite" & newPiece.gameObject.name == "ChessPieceRookWhite1") //& canQueensideCastle)
                 {
                     GameObject kingDestination = GameObject.Find("C1");
 
