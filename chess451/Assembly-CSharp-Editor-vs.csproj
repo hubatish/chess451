@@ -135,7 +135,7 @@
      <None Include="Assets\Photon Unity Networking\changelog.txt" />
      <None Include="Assets\Plugins\Photon3Unity3D.xml" />
  <Reference Include="Assembly-UnityScript">
- <HintPath>C:/Users/Colton Terrace/Documents/GitHub/chess451/chess451/chess451/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
+ <HintPath>C:/Users/Xavi/Documents/SKEWL/CS/CS 451/Git/chess451/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.3/UnityEngine.UI.dll</HintPath>
@@ -144,28 +144,28 @@
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.3/Editor/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="Newtonsoft.Json">
- <HintPath>C:/Users/Colton Terrace/Documents/GitHub/chess451/chess451/chess451/Assets/Photon Unity Networking/Editor/PhotonNetwork/Newtonsoft.Json.dll</HintPath>
+ <HintPath>C:/Users/Xavi/Documents/SKEWL/CS/CS 451/Git/chess451/Assets/Photon Unity Networking/Editor/PhotonNetwork/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="Photon3Unity3D">
- <HintPath>C:/Users/Colton Terrace/Documents/GitHub/chess451/chess451/chess451/Assets/Plugins/Photon3Unity3D.dll</HintPath>
+ <HintPath>C:/Users/Xavi/Documents/SKEWL/CS/CS 451/Git/chess451/Assets/Plugins/Photon3Unity3D.dll</HintPath>
  </Reference>
  <Reference Include="NSubstitute">
- <HintPath>C:/Users/Colton Terrace/Documents/GitHub/chess451/chess451/chess451/Assets/UnityTestTools/UnitTesting/Editor/NSubstitute/NSubstitute.dll</HintPath>
+ <HintPath>C:/Users/Xavi/Documents/SKEWL/CS/CS 451/Git/chess451/Assets/UnityTestTools/UnitTesting/Editor/NSubstitute/NSubstitute.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
- <HintPath>C:/Users/Colton Terrace/Documents/GitHub/chess451/chess451/chess451/Assets/UnityTestTools/UnitTesting/Editor/NUnit/Libs/Mono.Cecil.dll</HintPath>
+ <HintPath>C:/Users/Xavi/Documents/SKEWL/CS/CS 451/Git/chess451/Assets/UnityTestTools/UnitTesting/Editor/NUnit/Libs/Mono.Cecil.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil.Mdb">
- <HintPath>C:/Users/Colton Terrace/Documents/GitHub/chess451/chess451/chess451/Assets/UnityTestTools/UnitTesting/Editor/NUnit/Libs/Mono.Cecil.Mdb.dll</HintPath>
+ <HintPath>C:/Users/Xavi/Documents/SKEWL/CS/CS 451/Git/chess451/Assets/UnityTestTools/UnitTesting/Editor/NUnit/Libs/Mono.Cecil.Mdb.dll</HintPath>
  </Reference>
  <Reference Include="nunit.core">
- <HintPath>C:/Users/Colton Terrace/Documents/GitHub/chess451/chess451/chess451/Assets/UnityTestTools/UnitTesting/Editor/NUnit/Libs/nunit.core.dll</HintPath>
+ <HintPath>C:/Users/Xavi/Documents/SKEWL/CS/CS 451/Git/chess451/Assets/UnityTestTools/UnitTesting/Editor/NUnit/Libs/nunit.core.dll</HintPath>
  </Reference>
  <Reference Include="nunit.core.interfaces">
- <HintPath>C:/Users/Colton Terrace/Documents/GitHub/chess451/chess451/chess451/Assets/UnityTestTools/UnitTesting/Editor/NUnit/Libs/nunit.core.interfaces.dll</HintPath>
+ <HintPath>C:/Users/Xavi/Documents/SKEWL/CS/CS 451/Git/chess451/Assets/UnityTestTools/UnitTesting/Editor/NUnit/Libs/nunit.core.interfaces.dll</HintPath>
  </Reference>
  <Reference Include="nunit.framework">
- <HintPath>C:/Users/Colton Terrace/Documents/GitHub/chess451/chess451/chess451/Assets/UnityTestTools/UnitTesting/Editor/NUnit/Libs/nunit.framework.dll</HintPath>
+ <HintPath>C:/Users/Xavi/Documents/SKEWL/CS/CS 451/Git/chess451/Assets/UnityTestTools/UnitTesting/Editor/NUnit/Libs/nunit.framework.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>

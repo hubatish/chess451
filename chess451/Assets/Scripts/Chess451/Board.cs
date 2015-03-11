@@ -51,9 +51,9 @@ namespace Assets.Scripts.Chess451
             p.X = 3;
             _board[2, 7] = new Bishop(PIECE_COLOR.BLACK, p);
             p.X = 4;
-            _board[3, 7] = new King(PIECE_COLOR.BLACK, p);
+            _board[3, 7] = new Queen(PIECE_COLOR.BLACK, p);
             p.X = 5;
-            _board[4, 7] = new Queen(PIECE_COLOR.BLACK, p);
+            _board[4, 7] = new King(PIECE_COLOR.BLACK, p);
             p.X = 6;
             _board[5, 7] = new Bishop(PIECE_COLOR.BLACK, p);
             p.X = 7;
