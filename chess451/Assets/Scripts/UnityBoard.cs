@@ -48,7 +48,6 @@ public class UnityBoard : MonoBehaviour
             //if piece is already selected then we move it to whatever object we click
             else if (Physics.Raycast(ray, out hit, 100) & isWhite == Turn.white_turn)
             {
-                Debug.Log(sPiece.transform.gameObject.name);
 
                 //QueensideCastle. Add the canQueensideCastle from move validation
 
@@ -93,34 +92,87 @@ public class UnityBoard : MonoBehaviour
 
         GameObject pieceOnDestSquare = UnityBoardSquare.GetUnityBoardSquare(newPos).GetPieceOnSquare();
 
-        if (pieceOnDestSquare != null)
-        {
-            Transform newPiece = pieceOnDestSquare.transform;
+        if (pieceOnDestSquare != null) {
+			Transform newPiece = pieceOnDestSquare.transform;
+			Debug.Log ("NewPiece: " + newPiece.gameObject.name);
 
-            if ((piece.collider.gameObject.tag == "WhitePiece" & newPiece.gameObject.tag == "BlackPiece") | piece.collider.gameObject.tag == "BlackPiece" & newPiece.gameObject.tag == "WhitePiece")
-            {
-                //Capture a piece
-                Destroy(newPiece.gameObject);
-            }
-            else 
-            {
+			if ((piece.collider.gameObject.tag == "WhitePiece" & newPiece.gameObject.tag == "BlackPiece") | piece.collider.gameObject.tag == "BlackPiece" & newPiece.gameObject.tag == "WhitePiece") {
+				//Capture a piece
+				Destroy (newPiece.gameObject);
+			}
+		
+            //else 
+			//{
                 //ZH Moved XS Castling code to be shared for networking
 
-                Position WRook1NewPos = new Position(GameObject.Find("D1").name);
-                Position WRook1OldPos = new Position(GameObject.Find("ChessPieceRookWhite").name);
+			//White Pieces
 
-                if (piece.gameObject.name == "ChessPieceKingWhite" & newPiece.gameObject.name == "ChessPieceRookWhite1") //& canQueensideCastle)
-                {
-                    GameObject kingDestination = GameObject.Find("C1");
+			//Queenside castle
+			if (piece.gameObject.name == "ChessPieceKingWhite" & newPiece.gameObject.name == "ChessPieceRookWhite1") //& canQueensideCastle)
+			{
+				Position WRook1NewPos = new Position("D1");
+				Position WRook1OldPos = new Position("A1");
+				GameObject kingDestination = GameObject.Find("C1");
+				
+				OfficiallyMovePiece(WRook1OldPos, WRook1NewPos);
+				newPos = new Position("C1");
+				
+				newSquare = UnityBoardSquare.GetUnityBoardSquare(newPos).transform;
+			}    
 
-                    NetworkPlayer.Instance.MovePiece(WRook1OldPos, WRook1NewPos);
-                    newPos = new Position(kingDestination.name);
-                }
-            }
+
+			//Kingside Castle
+				if (piece.gameObject.name == "ChessPieceKingWhite"  & newPiece.gameObject.name == "ChessPieceRookWhite") //& canKingsideCastle)
+			{
+				Position WRook1NewPos = new Position("F1");
+				Position WRook1OldPos = new Position("H1");
+				GameObject kingDestination = GameObject.Find("C1");
+				
+				OfficiallyMovePiece(WRook1OldPos, WRook1NewPos);
+				newPos = new Position("G1");
+				
+				newSquare = UnityBoardSquare.GetUnityBoardSquare(newPos).transform;
+			} 
+		
+			//Black Pieces
+
+			//Queenside castle
+			if (piece.gameObject.name == "ChessPieceKingBlack"  & newPiece.gameObject.name == "ChessPieceRookBlack1") //& canQueensideCastle)
+			{
+				Position BRook1NewPos = new Position("D8");
+				Position BRook1OldPos = new Position("A8");
+				GameObject kingDestination = GameObject.Find("C1");
+				
+				OfficiallyMovePiece(BRook1OldPos, BRook1NewPos);
+				newPos = new Position("C8");
+				
+				newSquare = UnityBoardSquare.GetUnityBoardSquare(newPos).transform;
+			} 
+			  
+		
+				
+			//Kingside Castle
+			if (piece.gameObject.name == "ChessPieceKingBlack"  & newPiece.gameObject.name == "ChessPieceRookBlack") //& canKingsideCastle)
+			{
+				Position BRook1NewPos = new Position("F8");
+				Position BRook1OldPos = new Position("H8");
+				
+				OfficiallyMovePiece(BRook1OldPos, BRook1NewPos);
+				newPos = new Position("G8");
+				
+				newSquare = UnityBoardSquare.GetUnityBoardSquare(newPos).transform;
+			} 
+                
+            //}
         }
 
-        //don't change y value (ZH grab from XS 3-9, midnight)
-        piece.transform.position = new Vector3(newSquare.position.x, piece.transform.position.y, newSquare.position.z);
+			
+		
+
+
+		
+		//don't change y value (ZH grab from XS 3-9, midnight)
+		piece.transform.position = new Vector3(newSquare.position.x, piece.transform.position.y, newSquare.position.z);
         piece.GetComponent<UnityPiece>().SyncCurrentPosition();
         Turn.white_turn = !Turn.white_turn;
     }

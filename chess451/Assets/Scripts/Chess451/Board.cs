@@ -476,7 +476,7 @@ namespace Assets.Scripts.Chess451
                 _board[x1, y1] = null;
                 
 
-                if(FastCheck(_board[x2, y2].color)) // Rollback illegal moves (mostly pins)
+                /*if(FastCheck(_board[x2, y2].color)) // Rollback illegal moves (mostly pins)
                 {
                     _board[x1, y1] = _board[x2, y2];
                     _board[x2, y2] = tempPiece;
@@ -486,7 +486,7 @@ namespace Assets.Scripts.Chess451
                         _board[x2, y1] = tempPassant;
                     }
                     return false;
-                }
+                }*/
 
                 Position p = new Position();
                 p.X = x2 + 1;
