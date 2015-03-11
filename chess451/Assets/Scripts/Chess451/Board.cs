@@ -104,7 +104,7 @@ namespace Assets.Scripts.Chess451
                     //_board[7,0] 
                     return true;
                 }
-            if (c == PIECE_COLOR.BLACK && !Object.Equals(_board[3, 7], null) && !_board[3, 7].hasMoved) // check the king
+            if (c == PIECE_COLOR.BLACK && !Object.Equals(_board[4, 7], null) && !_board[4, 7].hasMoved) // check the king
                 if (!Object.Equals(_board[0, 7], null) && !_board[0, 7].hasMoved) // chech the rook
                 {
                     for (int i = 1; i < 3; i++)
@@ -130,7 +130,7 @@ namespace Assets.Scripts.Chess451
                     }
                     return true;
                 }
-            if (c == PIECE_COLOR.BLACK && !Object.Equals(_board[3, 7], null) && !_board[3, 7].hasMoved) // check the king
+            if (c == PIECE_COLOR.BLACK && !Object.Equals(_board[4, 7], null) && !_board[4, 7].hasMoved) // check the king
                 if (!Object.Equals(_board[7, 7], null) && !_board[7, 7].hasMoved) // chech the rook
                 {
                     for (int i = 4; i < 7; i++)
@@ -199,11 +199,11 @@ namespace Assets.Scripts.Chess451
                 }
                 //king is at 3
                 int otherX = -1;
-                if (x1 == 3)
+                if (x1 == 4)
                 {
                     otherX = x2;
                 }
-                else if (x2 == 3)
+                else if (x2 == 4)
                 {
                     otherX = x1;
                 }
