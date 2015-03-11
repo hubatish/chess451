@@ -7,7 +7,7 @@ public class PositionTest: CTest
 {
     public PositionTest()
     {
-        testname = "Position";
+        testname = "PositionBounds";
     }
 
     public override bool run( out string message)
