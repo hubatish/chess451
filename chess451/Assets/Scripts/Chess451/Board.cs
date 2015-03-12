@@ -274,8 +274,10 @@ namespace Assets.Scripts.Chess451
         public void PromoteToQueen(Piece pawn)
         {
             Position p = new Position();
-            p.X = pawn.X;
-            p.Y = pawn.Y;
+            p.X = pawn.position.X;
+            p.Y = pawn.position.Y;
+            Queen q = new Queen(pawn.color, pawn.position);
+            _board[p.X - 1, p.Y - 1] = q;
             
         }
 
