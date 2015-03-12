@@ -149,7 +149,19 @@ namespace Assets.Scripts.Chess451
                     {
                         if (!Object.Equals(_board[i, 0], null)) // check that the spaces in between are empty
                             return false;
+
                     }
+
+                    
+                    _board[2, 0] = _board[4, 0];
+                    if (FastCheck(c))
+                    {
+                        _board[2, 0] = null;
+                        return false;
+                    }
+                    _board[4, 0] = null;
+                    _board[2, 0].position.X = 3;
+                    
                     return true;
                 }
             if (c == PIECE_COLOR.BLACK && !Object.Equals(_board[4, 7], null) && !_board[4, 7].hasMoved) // check the king
@@ -501,20 +513,23 @@ namespace Assets.Scripts.Chess451
         public bool moveBoardPiece(int x1, int y1, int x2, int y2, out bool passant)
         {
             bool isValid;
+            bool isCastle;
             if(isCastleMoveValid(x1,y1,x2,y2))
             {
                 isValid = true;
+                isCastle = true;
             }
             else
             {
                 isValid = isValidMove(x1, y1, x2, y2);
+                isCastle = false;
             }
             passant = false;
             
             Piece tempPassant = new Pawn(PIECE_COLOR.WHITE, new Position());
-            if (isValid)
+            if (isValid && !isCastle)
             {
-                
+
                 if (_board[x1, y1] is Pawn && x2 != x1 && Object.Equals(_board[x2, y2], null))
                 {
                     tempPassant = _board[x2, y1];
@@ -526,9 +541,9 @@ namespace Assets.Scripts.Chess451
                 Piece tempPiece = _board[x2, y2];
                 _board[x2, y2] = _board[x1, y1];
                 _board[x1, y1] = null;
-                
 
-                if(FastCheck(_board[x2, y2].color)) // Rollback illegal moves (mostly pins)
+
+                if (FastCheck(_board[x2, y2].color)) // Rollback illegal moves (mostly pins)
                 {
                     _board[x1, y1] = _board[x2, y2];
                     _board[x2, y2] = tempPiece;
@@ -550,7 +565,7 @@ namespace Assets.Scripts.Chess451
                 if (!Object.Equals(tempPassant, null))
                     piecesList.Remove(tempPassant);
 
-                
+
             }
             return isValid;
         }
