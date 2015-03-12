@@ -498,7 +498,14 @@ namespace Assets.Scripts.Chess451
 
             }
 
-            CheckDisplay.Instance.DisplayCheck(retVal);
+            if(mate)
+            {
+                CheckDisplay.Instance.CheckMate(c);
+            }
+            else
+            {
+                CheckDisplay.Instance.DisplayCheck(retVal);
+            }
 
             return retVal;
         }
@@ -542,8 +549,9 @@ namespace Assets.Scripts.Chess451
                 _board[x2, y2] = _board[x1, y1];
                 _board[x1, y1] = null;
 
+                bool mate = false;
 
-                if (FastCheck(_board[x2, y2].color)) // Rollback illegal moves (mostly pins)
+                if (FastCheck(_board[x2, y2].color) && Check(_board[x2, y2].color,out mate)) // Rollback illegal moves (mostly pins)
                 {
                     _board[x1, y1] = _board[x2, y2];
                     _board[x2, y2] = tempPiece;
