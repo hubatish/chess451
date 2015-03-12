@@ -261,6 +261,23 @@ namespace Assets.Scripts.Chess451
             }
             return retVal;
         }
+        public bool CanPromote(Piece p)
+        {
+            if (p is Pawn)
+            {
+                if (p.position.Y == 0 || p.position.Y == 8)
+                    return true;
+            }
+            return false;
+        }
+
+        public void PromoteToQueen(Piece pawn)
+        {
+            Position p = new Position();
+            p.X = pawn.X;
+            p.Y = pawn.Y;
+            
+        }
 
         public bool FastCheck(PIECE_COLOR c)
         {
