@@ -9,30 +9,39 @@ namespace Assets.Scripts.Chess451
     public class Board
     {
         Piece[,] _board;
+        List<Piece> piecesList;
         public Board()
         {
             _board = new Piece[8,8];
 
-
+            piecesList = new List<Piece>();
             // Seed White Backrow
             Position p = new Position();
             p.X = 1;
             p.Y = 1;
             _board[0, 0] = new Rook(PIECE_COLOR.WHITE,p);
+            piecesList.Add(_board[0, 0]);
             p.X = 2;
             _board[1, 0] = new Knight(PIECE_COLOR.WHITE, p);
+            piecesList.Add(_board[1, 0]);
             p.X = 3;
             _board[2, 0] = new Bishop(PIECE_COLOR.WHITE, p);
+            piecesList.Add(_board[2, 0]);
             p.X = 4;
             _board[3, 0] = new Queen(PIECE_COLOR.WHITE, p);
+            piecesList.Add(_board[3, 0]);
             p.X = 5;
             _board[4, 0] = new King(PIECE_COLOR.WHITE, p);
+            piecesList.Add(_board[4, 0]);
             p.X = 6;
             _board[5, 0] = new Bishop(PIECE_COLOR.WHITE, p);
+            piecesList.Add(_board[5, 0]);
             p.X = 7;
             _board[6, 0] = new Knight(PIECE_COLOR.WHITE, p);
+            piecesList.Add(_board[6, 0]);
             p.X = 8;
             _board[7, 0] = new Rook(PIECE_COLOR.WHITE, p);
+            piecesList.Add(_board[7, 0]);
 
             p.Y = 2;
             //Seet White Frontrow
@@ -40,26 +49,35 @@ namespace Assets.Scripts.Chess451
             {
                 p.X = i + 1;
                 _board[i, 1] = new Pawn(PIECE_COLOR.WHITE, p);
+                piecesList.Add(_board[i, 1]);
             }
 
                 // Seed Black backrow
             p.X = 1;
             p.Y = 8;
             _board[0, 7] = new Rook(PIECE_COLOR.BLACK, p);
+            piecesList.Add(_board[0, 7]);
             p.X = 2;
             _board[1, 7] = new Knight(PIECE_COLOR.BLACK, p);
+            piecesList.Add(_board[1, 7]);
             p.X = 3;
             _board[2, 7] = new Bishop(PIECE_COLOR.BLACK, p);
+            piecesList.Add(_board[2, 7]);
             p.X = 4;
             _board[3, 7] = new Queen(PIECE_COLOR.BLACK, p);
+            piecesList.Add(_board[3, 7]);
             p.X = 5;
             _board[4, 7] = new King(PIECE_COLOR.BLACK, p);
+            piecesList.Add(_board[4, 7]);
             p.X = 6;
             _board[5, 7] = new Bishop(PIECE_COLOR.BLACK, p);
+            piecesList.Add(_board[5, 7]);
             p.X = 7;
             _board[6, 7] = new Knight(PIECE_COLOR.BLACK, p);
+            piecesList.Add(_board[6, 7]);
             p.X = 8;
             _board[7, 7] = new Rook(PIECE_COLOR.BLACK, p);
+            piecesList.Add(_board[7, 7]);
 
             p.Y = 7;
             //Seet Black Frontrow
@@ -67,6 +85,7 @@ namespace Assets.Scripts.Chess451
             {
                 p.X = i + 1;
                 _board[i, 6] = new Pawn(PIECE_COLOR.BLACK, p);
+                piecesList.Add(_board[i, 6]);
             }
         }
         public Board(List<Piece> pieces)
@@ -79,6 +98,8 @@ namespace Assets.Scripts.Chess451
                 int y = p.position.Y - 1;
                 _board[x, y] = p;
             }
+
+            piecesList = pieces;
         }
 
 
@@ -280,31 +301,36 @@ namespace Assets.Scripts.Chess451
             _board[p.X - 1, p.Y - 1] = q;
             
         }
+       
 
         public bool FastCheck(PIECE_COLOR c)
         {
             bool retVal = false;
-            foreach (Piece p in _board)
+
+            //foreach (Piece p in listPieces
+            foreach (Piece p in piecesList)
             {
-                if (!Object.Equals(p, null))
-                {
+                
                     ThreatMap t = p.getMoves().Invoke(this);
-                    for (int i = 0; i < 8; i++)
+                    foreach (Piece p2 in piecesList)
                     {
-                        for (int j = 0; j < 8; j++)
+                        if (!Object.ReferenceEquals(p, p2))
                         {
+                            int i = p2.position.X - 1;
+                            int j = p2.position.Y - 1;
                             if (_board[i, j] is King && t.GetSpot(i, j) && _board[i, j].color == c)
                             {
 
                                 retVal = true;
-                                goto End;                                
-                                
-                            }
+                                goto End;
 
+                            }
                         }
                     }
+                        
+                    
                     //tList1.Add(t);
-                }
+                
 
 
             }
@@ -518,8 +544,13 @@ namespace Assets.Scripts.Chess451
                 p.X = x2 + 1;
                 p.Y = y2 + 1;
                 _board[x2, y2].position = p;
-				
 
+                if (!Object.Equals(tempPiece, null))
+                    piecesList.Remove(tempPiece);
+                if (!Object.Equals(tempPassant, null))
+                    piecesList.Remove(tempPassant);
+
+                
             }
             return isValid;
         }
